@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "gamecollection",
+    "password": "gamecollection",
+    "database": "gamecollection",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "gamecollection",
+    "password": "gamecollection",
+    "database": "gamecollection",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "gamecollection",
+    "password": "gamecollection",
+    "database": "gamecollection",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
