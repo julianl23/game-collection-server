@@ -1,6 +1,8 @@
 import Hapi from "hapi";
 import { graphqlHapi, graphiqlHapi } from "apollo-server-hapi";
 import schema from "./data/schema";
+import db from "./data/db/connection";
+import models from "./models";
 
 const HOST = "localhost";
 const PORT = 3000;
@@ -10,21 +12,14 @@ const server = new Hapi.server({
   port: PORT
 });
 
-// server.route({
-//   method: "GET",
-//   path: "/",
-//   handler: (request, h) => {
-//     return "Hello, world!";
-//   }
-// });
-
-// server.route({
-//   method: "GET",
-//   path: "/{name}",
-//   handler: (request, h) => {
-//     return "Hello, " + encodeURIComponent(request.params.name) + "!";
-//   }
-// });
+server.route({
+  method: "GET",
+  path: "/games",
+  handler: async (request, h) => {
+    const games = await models.Game.findAll();
+    return games;
+  }
+});
 
 const StartServer = async () => {
   await server.register({
@@ -53,11 +48,11 @@ const StartServer = async () => {
     }
   });
 
-  // try {
-  await server.start();
-  // } catch (err) {
-  //   console.log(`Error while starting server: ${err.message}`);
-  // }
+  try {
+    await server.start();
+  } catch (err) {
+    console.log(`Error while starting server: ${err.message}`);
+  }
 
   console.log(`Server running at: ${server.info.uri}`);
 };

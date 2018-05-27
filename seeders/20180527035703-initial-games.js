@@ -4,7 +4,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("Games", [
       {
-        id: 1,
         title: "Super Mario Bros.",
         developer: "Nintendo EAD",
         publisher: "Nintendo",
@@ -14,7 +13,6 @@ module.exports = {
           "Super Mario Bros. is a fantasy platformer created by Shigeru Miyamoto, and published by Nintendo. The game was released in 1985 for the Nintendo Entertainment System. Super Mario Bros. has gone on to be considered by many to be one of the best platformers ever created. The Guinness World Records Gamer’s Edition, a record keeping organization, declared Super Mario Bros. for the NES as the best selling video game of all time with more than 40 million copies sold worldwide."
       },
       {
-        id: 2,
         title: "Mario & Luigi: Superstar Saga + Bowser's Minions",
         developer: "AlphaDream Corporation, Ltd.",
         publisher: "Nintendo",
@@ -24,7 +22,6 @@ module.exports = {
           "A remake of the original Mario & Luigi RPG with an additional, parallel side-story."
       },
       {
-        id: 3,
         title: "Mario Kart 8 Deluxe",
         developer: "Nintendo EAD",
         publisher: "Nintendo",
@@ -34,7 +31,6 @@ module.exports = {
           "Mario Kart 8 introduces gravity-based track design with vertical surfaces and upside down roads for the usual band of racers to drive on via magnetic wheels. Another new feature is Mario Kart TV which automatically creates a highlight reel of each race for users to share with their friends on Miiverse or YouTube. The Community features introduced in Mario Kart 7 make a return, letting players set up tournaments and group races with an expanded set of custom rules. Up to 12 players are able to compete in the game's online mode, including two local players using the same console. There is also local support for up to four player splitscreen races."
       },
       {
-        id: 4,
         title: "God of War",
         developer: "SIE Santa Monica Studio",
         publisher: "Sony Interactive Entertainment America",
