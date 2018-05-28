@@ -13,11 +13,36 @@ const server = new Hapi.server({
 });
 
 server.route({
-  method: "GET",
-  path: "/games",
+  method: "POST",
+  path: "/api/users",
+  options: {
+    log: {
+      collect: true
+    }
+  },
   handler: async (request, h) => {
-    const games = await models.Game.findAll();
-    return games;
+    const { email, username, password, firstName, lastName } = request.payload;
+    const userResponse = await models.User.findOrCreate({
+      where: {
+        email,
+        username,
+        password,
+        firstName,
+        lastName
+      }
+    }) // necessary to use spread to find out if user was found or created
+      .spread(function(userResult, created) {
+        if (created) {
+          return h.response(userResult).code(201);
+        } else {
+          return h
+            .response({
+              error: "Malformed request"
+            })
+            .code("400");
+        }
+      });
+    return userResponse;
   }
 });
 

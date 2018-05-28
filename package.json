@@ -19,6 +19,7 @@
     "hapi": "^17.5.0",
     "hapi-pino": "^4.0.4",
     "inert": "^5.1.0",
+    "joi": "^13.3.0",
     "mysql2": "^1.5.3",
     "prettier": "^1.12.1",
     "sequelize": "^4.37.10",
@@ -33,6 +34,8 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "eslint-config-hapi": "^11.1.0",
+    "eslint-plugin-hapi": "^4.1.0",
     "nodemon": "^1.17.5"
   }
 }
