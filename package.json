@@ -20,9 +20,12 @@
     "hapi": "^17.5.0",
     "hapi-auth-jwt2": "^8.1.0",
     "hapi-pino": "^4.0.4",
+    "husky": "^0.14.3",
     "inert": "^5.1.0",
     "joi": "^13.3.0",
     "jsonwebtoken": "^8.2.1",
+    "lint-staged": "^7.1.2",
+    "lodash": "^4.17.10",
     "mysql2": "^1.5.3",
     "prettier": "^1.12.1",
     "sequelize": "^4.37.10",
@@ -31,14 +34,21 @@
   "scripts": {
     "start": "nodemon ./server.js --exec babel-node",
     "start_just_babel_node": "babel-node server.js",
-    "dbtest": "babel-node ./data/db/connection.js"
+    "dbtest": "babel-node ./data/db/connection.js",
+    "precommit": "lint-staged",
+    "lint": "eslint data migration models routes server.js"
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "eslint-config-hapi": "^11.1.0",
     "eslint-plugin-hapi": "^4.1.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "nodemon": "^1.17.5"
   }
 }
