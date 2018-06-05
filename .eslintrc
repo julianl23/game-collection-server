@@ -1,7 +1,9 @@
 {
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true,
+    "jest/globals": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
@@ -18,5 +20,5 @@
     "semi": ["error", "always"],
     "prettier/prettier": "error"
   },
-  "plugins": ["prettier"]
+  "plugins": ["prettier", "jest"]
 }

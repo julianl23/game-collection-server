@@ -13,15 +13,7 @@ const login = {
     const userPromise = verifyCredentials(request);
 
     return userPromise.then(async user => {
-      if (!user) {
-        return h
-          .response({
-            error: 'Could not find user with provided email'
-          })
-          .code(401);
-      }
-
-      if (user.error) {
+      if (!user || user.error) {
         return h
           .response({
             error: 'Invalid credentials'
@@ -29,12 +21,19 @@ const login = {
           .code(401);
       }
 
+      const responseUser = {
+        id: user.dataValues.id,
+        email: user.dataValues.email,
+        username: user.dataValues.username,
+        firstName: user.dataValues.firstName,
+        lastName: user.dataValues.lastName,
+        admin: user.dataValues.admin,
+        token: getToken(user.dataValues.id)
+      };
+
       return h
         .response({
-          user: {
-            ...user.dataValues,
-            token: getToken(user.id)
-          }
+          user: responseUser
         })
         .code(200);
     });

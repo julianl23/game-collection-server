@@ -43,7 +43,6 @@ const post = {
             delete userData.password;
             return h
               .response({
-                // token: getToken(userResult.id),
                 user: {
                   token: getToken(userResult.id),
                   ...userData
@@ -58,6 +57,7 @@ const post = {
               .code(400);
           }
         });
+
       return userResponse;
     });
   }

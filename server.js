@@ -36,7 +36,8 @@ const StartServer = async () => {
         schema: schema
       },
       route: {
-        cors: true
+        cors: true,
+        auth: false
       }
     }
   });
@@ -46,7 +47,8 @@ const StartServer = async () => {
     options: {
       path: '/graphiql',
       route: {
-        cors: true
+        cors: true,
+        auth: false
       },
       graphiqlOptions: {
         endpointURL: '/graphql'
