@@ -1,10 +1,20 @@
 import Boom from 'boom';
-import { getList, post, login } from '../controller';
+import { getList, put, login } from '../controller';
 import { getToken, verifyCredentials } from '../helpers';
 import User from '../model';
 
-jest.mock('../model');
-jest.mock('../helpers');
+jest.mock('../model', () => ({
+  find: jest.fn(),
+  create: jest.fn(),
+  findOne: jest.fn(),
+  findOneAndRemove: jest.fn()
+}));
+
+jest.mock('../helpers', () => ({
+  getToken: jest.fn(),
+  hashPassword: jest.fn(),
+  verifyCredentials: jest.fn()
+}));
 
 describe('users', () => {
   describe('getList', () => {
@@ -30,7 +40,7 @@ describe('users', () => {
     });
   });
 
-  describe('post', () => {
+  describe('put', () => {
     it('returns a user if one is created', async () => {
       const mockRequest = {
         query: {},
@@ -66,7 +76,7 @@ describe('users', () => {
         ...userMock
       }));
 
-      await post.handler(mockRequest, h);
+      await put.handler(mockRequest, h);
       expect(h.response).toHaveBeenCalledWith({
         user: {
           email: userMock.email,
@@ -97,7 +107,7 @@ describe('users', () => {
         }
       ]);
 
-      const result = await post.handler(mockRequest);
+      const result = await put.handler(mockRequest);
       expect(result).toEqual(Boom.badRequest('User already exists'));
     });
 
@@ -114,7 +124,7 @@ describe('users', () => {
         }
       };
 
-      const result = await post.handler(mockRequest);
+      const result = await put.handler(mockRequest);
       expect(result).toEqual(
         Boom.badData('"password" is not allowed to be empty')
       );

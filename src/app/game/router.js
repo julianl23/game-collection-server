@@ -1,8 +1,8 @@
-import { getList, put, login } from './controller';
+import { getList, put } from './controller';
 
 const routes = [
   {
-    path: '/api/users',
+    path: '/api/games',
     method: 'GET',
     options: {
       log: {
@@ -13,7 +13,7 @@ const routes = [
     ...getList
   },
   {
-    path: '/api/users',
+    path: '/api/games',
     method: 'PUT',
     options: {
       log: {
@@ -21,16 +21,7 @@ const routes = [
       },
       auth: false
     },
-    ...put
-  },
-  {
-    path: '/api/users/login',
-    method: 'POST',
-    options: {
-      log: { collect: true },
-      auth: false
-    },
-    ...login
+    ...post
   }
 ];
 

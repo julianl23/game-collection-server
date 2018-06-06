@@ -27,7 +27,7 @@ export const getList = {
   }
 };
 
-export const post = {
+export const put = {
   handler: async (request, h) => {
     const { email, username, password, firstName, lastName } = request.payload;
     const userData = {

@@ -3,10 +3,9 @@ import MongooseRepository from '../../repositories/MongooseRepository';
 class UserRepository extends MongooseRepository {
   get schema() {
     return {
-      buildingId: String,
-      email: String,
-      username: String,
-      password: String,
+      email: { type: String, required: true },
+      username: { type: String, required: true },
+      password: { type: String, required: true },
       firstName: String,
       lastName: String,
       admin: Boolean

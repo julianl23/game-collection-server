@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`repositories MongooseRepository throws an error when a schema is not implemented 1`] = `"Not implemented. Please provide a schema in your class definition."`;
+
+exports[`repositories MongooseRepository throws an error when trying to access an unimplemented collectionName getter 1`] = `"Not implemented. Please provide a collectionName in your class definition."`;

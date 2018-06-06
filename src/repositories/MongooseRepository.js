@@ -6,6 +6,7 @@ class MongooseRepository {
 
     this.Model = mongoose.model(this.schemaName, schema);
   }
+
   get schema() {
     throw new Error(
       'Not implemented. Please provide a schema in your class definition.'
@@ -26,7 +27,8 @@ class MongooseRepository {
 
   getSchema() {
     return new mongoose.Schema(this.schema, {
-      collection: this.collectionName
+      collection: this.collectionName,
+      timestamps: true
     });
   }
 
