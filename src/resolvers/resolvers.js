@@ -1,4 +1,6 @@
-import models from '../models';
+import mongoose from 'mongoose';
+import Game from '../app/game/model';
+// import User from '../app/user/model';
 
 // Examples from https://dev-blog.apollodata.com/tutorial-building-a-graphql-server-cddaa023c035?_ga=2.16070707.401638683.1527376000-1121082364.1527376000
 // const resolvers = {
@@ -31,11 +33,11 @@ import models from '../models';
 const resolvers = {
   Query: {
     async games() {
-      return await models.Game.findAll();
+      return await Game.find({});
     },
     async game(root, args) {
       const { id } = args;
-      return await models.Game.findById(id);
+      return await Game.findOne({ _id: mongoose.Types.ObjectId(id) });
     }
   }
 };

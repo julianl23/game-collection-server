@@ -21,7 +21,7 @@ const routes = [
       },
       auth: false
     },
-    ...post
+    ...put
   }
 ];
 

@@ -1,5 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import resolvers from './resolvers';
+import resolvers from '../resolvers/resolvers';
 
 // Examples from https://dev-blog.apollodata.com/tutorial-building-a-graphql-server-cddaa023c035?_ga=2.16070707.401638683.1527376000-1121082364.1527376000
 // `
@@ -29,11 +29,11 @@ import resolvers from './resolvers';
 const typeDefs = `
 type Query {
   games: [Game]
-  game(id: Int): Game
+  game(id: String): Game
 }
 
 type Game {
-  id: Int
+  id: String
   title: String,
   developer: String
   publisher: String
