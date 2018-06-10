@@ -159,7 +159,7 @@ describe('users', () => {
       verifyCredentials.mockImplementationOnce(() => expectedUser);
       getToken.mockImplementationOnce(() => '12345');
 
-      const result = await login.handler(mockRequest, h);
+      await login.handler(mockRequest, h);
       expect(h.response).toHaveBeenCalledWith({
         user: {
           ...expectedUser,

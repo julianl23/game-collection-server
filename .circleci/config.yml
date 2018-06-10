@@ -3,8 +3,9 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
-jobs:
-  build:
+
+references:
+  container_config: &container_config
     docker:
       # specify the version you desire here
       - image: circleci/node:10-stretch-browsers
@@ -13,10 +14,20 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/mongo:3.6.5-jessie-ram
+    working_directory: /tmp/game-collection-server
 
-    working_directory: ~/repo
+  workspace_root: &workspace_root
+    /tmp/game-collection-server
 
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+jobs:
+  build:
+    <<: *container_config
     steps:
+      - *attach_workspace
       - checkout
 
       # Download and cache dependencies
@@ -32,8 +43,27 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
-      # run tests!
+
+  test:
+    <<: *container_config
+    steps:
+      - *attach_workspace
       - run: yarn test
 
+  lint:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+      - run: yarn lint
 
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - lint:
+          requires:
+            - build
