@@ -152,7 +152,9 @@ describe('users', () => {
 
       const h = {
         response: jest.fn().mockReturnValue({
-          code: jest.fn()
+          header: jest.fn().mockReturnValue({
+            code: jest.fn()
+          })
         })
       };
 

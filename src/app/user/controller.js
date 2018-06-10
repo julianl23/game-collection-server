@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import Boom from 'boom';
 import User from './model';
-import GameCollection from '../game_collection/model';
 import { hashPassword, getToken, verifyCredentials } from './helpers';
 
 const userJoiSchema = Joi.object().keys({
@@ -93,11 +92,5 @@ export const login = {
       })
       .header('Authorization', token)
       .code(200);
-  }
-};
-
-const gameCollection = {
-  handler: (request, h) => {
-    // const User
   }
 };

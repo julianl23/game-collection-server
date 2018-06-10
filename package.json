@@ -35,7 +35,8 @@
     "start_just_babel_node": "babel-node server.js",
     "dbtest": "babel-node ./data/db/connection.js",
     "precommit": "lint-staged",
-    "lint": "eslint data migration models routes server.js",
+    "prepush": "yarn test && yarn lint",
+    "lint": "eslint src",
     "test": "jest"
   },
   "lint-staged": {
