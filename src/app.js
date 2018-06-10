@@ -2,6 +2,7 @@ import Hapi from 'hapi';
 import HapiPino from 'hapi-pino';
 import { graphqlHapi, graphiqlHapi } from 'apollo-server-hapi';
 import hapiAuthJwt from 'hapi-auth-jwt2';
+import mongoose from 'mongoose';
 import routes from './app/index';
 import setupMongoose from './config/mongoose';
 import schema from './types/schema';
@@ -65,18 +66,21 @@ const registerJWT = async server => {
 
   // TODO: Re-implement this in mongo and move it elsewhere
   const validate = async function(decoded) {
-    if (User.findOne({ _id: decoded.id })) {
-      return { isValid: false };
-    } else {
-      return { isValid: true };
-    }
+    const validateUser = await User.findOne({
+      _id: mongoose.Types.ObjectId(decoded.id)
+    });
+
+    return { isValid: validateUser ? true : false };
   };
 
   server.auth.strategy('jwt', 'jwt', {
     key: secretKey, // Never Share your secret key
-    validate: validate, // validate function defined above
+    // validate: validate, // validate function defined above
+    validate,
     verifyOptions: { algorithms: ['HS256'] } // pick a strong algorithm
   });
+
+  server.auth.default('jwt');
 };
 
 export const bootstrapApp = async () => {

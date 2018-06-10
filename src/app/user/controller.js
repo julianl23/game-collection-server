@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import Boom from 'boom';
 import User from './model';
+import GameCollection from '../game_collection/model';
 import { hashPassword, getToken, verifyCredentials } from './helpers';
 
 const userJoiSchema = Joi.object().keys({
@@ -68,12 +69,14 @@ export const put = {
 };
 
 export const login = {
-  handler: async request => {
+  handler: async (request, h) => {
     const user = await verifyCredentials(request);
 
     if (!user || user.error) {
       return Boom.unauthorized('Invalid credentials');
     }
+
+    const token = getToken(user.id);
 
     const responseUser = {
       id: user.id,
@@ -81,11 +84,20 @@ export const login = {
       username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
-      token: getToken(user.id)
+      token
     };
 
-    return {
-      user: responseUser
-    };
+    return h
+      .response({
+        user: responseUser
+      })
+      .header('Authorization', token)
+      .code(200);
+  }
+};
+
+const gameCollection = {
+  handler: (request, h) => {
+    // const User
   }
 };

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Game from '../app/game/model';
-// import User from '../app/user/model';
+import User from '../app/user/model';
 
 // Examples from https://dev-blog.apollodata.com/tutorial-building-a-graphql-server-cddaa023c035?_ga=2.16070707.401638683.1527376000-1121082364.1527376000
 // const resolvers = {
@@ -38,6 +38,10 @@ const resolvers = {
     async game(root, args) {
       const { id } = args;
       return await Game.findOne({ _id: mongoose.Types.ObjectId(id) });
+    },
+    async user(root, args) {
+      const { id } = args;
+      return await User.findOne({ _id: mongoose.Types.ObjectId(id) });
     }
   }
 };

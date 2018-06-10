@@ -30,16 +30,29 @@ const typeDefs = `
 type Query {
   games: [Game]
   game(id: String): Game
+  user(id: String): User
 }
 
 type Game {
   id: String
-  title: String,
+  title: String
   developer: String
   publisher: String
   platform: String
   releaseDate: String
   description: String
+  createdAt: String
+  updatedAt: String
+}
+
+type User {
+  id: String
+  email: String
+  username: String
+  firstName: String
+  lastName: String
+  createdAt: String
+  updatedAt: String
 }
 `;
 
