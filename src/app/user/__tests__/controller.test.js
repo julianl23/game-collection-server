@@ -150,11 +150,17 @@ describe('users', () => {
         lastName: 'McGee'
       };
 
+      const h = {
+        response: jest.fn().mockReturnValue({
+          code: jest.fn()
+        })
+      };
+
       verifyCredentials.mockImplementationOnce(() => expectedUser);
       getToken.mockImplementationOnce(() => '12345');
 
-      const result = await login.handler(mockRequest);
-      expect(result).toEqual({
+      const result = await login.handler(mockRequest, h);
+      expect(h.response).toHaveBeenCalledWith({
         user: {
           ...expectedUser,
           token: '12345'
