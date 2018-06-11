@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gamecollection router /api/collection has the correct structure 1`] = `
+Array [
+  Object {
+    "handler": [MockFunction],
+    "method": "GET",
+    "options": Object {
+      "auth": false,
+      "log": Object {
+        "collect": true,
+      },
+    },
+    "path": "/api/collection",
+  },
+  Object {
+    "handler": [MockFunction],
+    "method": "PUT",
+    "options": Object {
+      "log": Object {
+        "collect": true,
+      },
+    },
+    "path": "/api/collection/add",
+  },
+]
+`;

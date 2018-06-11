@@ -40,9 +40,9 @@ export const get = {
       return Boom.badData('Collection ID is required');
     }
 
-    const { collectionId } = mongoose.Types.ObjectId(request.payload);
+    const { collectionId } = request.payload;
     const gameCollection = GameCollection.findOne({
-      _id: collectionId
+      _id: mongoose.Types.ObjectId(collectionId)
     });
 
     return {

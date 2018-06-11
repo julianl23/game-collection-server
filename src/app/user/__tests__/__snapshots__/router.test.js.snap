@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user router /api/users has the correct structure 1`] = `
+Array [
+  Object {
+    "handler": [MockFunction],
+    "method": "GET",
+    "options": Object {
+      "auth": false,
+      "log": Object {
+        "collect": true,
+      },
+    },
+    "path": "/api/users",
+  },
+  Object {
+    "handler": [MockFunction],
+    "method": "PUT",
+    "options": Object {
+      "auth": false,
+      "log": Object {
+        "collect": true,
+      },
+    },
+    "path": "/api/users",
+  },
+  Object {
+    "handler": [MockFunction],
+    "method": "POST",
+    "options": Object {
+      "auth": false,
+      "log": Object {
+        "collect": true,
+      },
+    },
+    "path": "/api/users/login",
+  },
+]
+`;
