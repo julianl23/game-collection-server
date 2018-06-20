@@ -18,11 +18,19 @@ Array [
     "method": "PUT",
     "options": Object {
       "auth": false,
-      "log": Object {
-        "collect": true,
-      },
     },
     "path": "/api/games",
+  },
+  Object {
+    "handler": [MockFunction],
+    "method": "GET",
+    "options": Object {
+      "auth": false,
+      "log": Object {
+        "collect": false,
+      },
+    },
+    "path": "/api/games/igdbTest",
   },
 ]
 `;
