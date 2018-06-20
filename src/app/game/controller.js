@@ -1,11 +1,11 @@
 import axios from 'axios';
 import Boom from 'boom';
 import Joi from 'joi';
-import igdb from 'igdb-api-node';
+// import igdb from 'igdb-api-node';
 import Game from './model';
-import Company from '../company/model';
-import Platform from '../platform/model';
-import seedData from '../../data/platform-igdb-seed.json';
+// import Company from '../company/model';
+// import Platform from '../platform/model';
+// import seedData from '../../data/platform-igdb-seed.json';
 
 const gameJoiSchema = Joi.object().keys({
   title: Joi.string()
@@ -72,8 +72,9 @@ export const put = {
 };
 
 export const igdbTest = {
-  handler: async request => {
-    const { payload } = request;
+  // handler: async request => {
+  handler: async () => {
+    // const { payload } = request;
 
     // *****************************************
 
@@ -102,16 +103,16 @@ export const igdbTest = {
 
     // ****** GAME FIELDS *****
 
-    const fields = [
-      'id',
-      'name',
-      'summary',
-      'first_release_date',
-      'cover',
-      'developers',
-      'publishers',
-      'platforms'
-    ].join(',');
+    // const fields = [
+    //   'id',
+    //   'name',
+    //   'summary',
+    //   'first_release_date',
+    //   'cover',
+    //   'developers',
+    //   'publishers',
+    //   'platforms'
+    // ].join(',');
 
     // console.log(fields);
 
