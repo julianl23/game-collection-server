@@ -5,7 +5,18 @@ class GameCollectionRepository extends MongooseRepository {
   get schema() {
     return {
       owner: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
-      items: [{ type: Schema.Types.ObjectId, ref: 'Games' }]
+      items: [
+        {
+          game: { type: Schema.Types.ObjectId, ref: 'Games' },
+          platform: { type: Schema.Types.ObjectId, ref: 'Platforms' },
+          note: {
+            text: String,
+            isPrivate: Boolean
+          },
+          borrowed: Boolean,
+          borrowedDate: Date
+        }
+      ]
     };
   }
 

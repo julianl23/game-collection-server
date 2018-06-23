@@ -7,7 +7,10 @@ jest.mock('mongoose', () => {
         find: val => val,
         create: val => val,
         findOne: val => val,
-        findOneAndRemove: val => val
+        findOneAndRemove: val => val,
+        insertMany: val => val,
+        update: val => val,
+        updateOne: val => val
       };
     }),
     Schema: jest.fn()
@@ -104,6 +107,33 @@ describe('repositories', () => {
       const expected = {};
 
       const value = testInstance.findOneAndRemove();
+
+      expect(value).toEqual(expected);
+    });
+
+    it('calls the correct insertMany function', () => {
+      const testInstance = new ImplementedTest();
+      const expected = {};
+
+      const value = testInstance.insertMany();
+
+      expect(value).toEqual(expected);
+    });
+
+    it('calls the correct update function', () => {
+      const testInstance = new ImplementedTest();
+      const expected = {};
+
+      const value = testInstance.update();
+
+      expect(value).toEqual(expected);
+    });
+
+    it('calls the correct updateOne function', () => {
+      const testInstance = new ImplementedTest();
+      const expected = {};
+
+      const value = testInstance.updateOne();
 
       expect(value).toEqual(expected);
     });

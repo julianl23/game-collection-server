@@ -32,6 +32,10 @@ class MongooseRepository {
     });
   }
 
+  insertMany(opts = {}) {
+    return this.Model.insertMany(opts);
+  }
+
   find(opts = {}) {
     return this.Model.find(opts);
   }
@@ -46,6 +50,14 @@ class MongooseRepository {
 
   findOneAndRemove(opts = {}) {
     return this.Model.findOneAndRemove(opts);
+  }
+
+  update(opts = {}) {
+    return this.Model.update(opts);
+  }
+
+  updateOne(opts = {}) {
+    return this.Model.updateOne(opts);
   }
 }
 

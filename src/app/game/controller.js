@@ -4,7 +4,7 @@ import Joi from 'joi';
 // import igdb from 'igdb-api-node';
 import Game from './model';
 // import Company from '../company/model';
-// import Platform from '../platform/model';
+import Platform from '../platform/model';
 // import seedData from '../../data/platform-igdb-seed.json';
 
 const gameJoiSchema = Joi.object().keys({
@@ -124,7 +124,8 @@ export const igdbTest = {
     const getPage = async nextPage => {
       const page = await axios.get(nextPage, {
         headers: {
-          'user-key': '761e2739f15afa61ff4a19d6b624ede0' // TODO: Don't leave this here
+          'user-key': '761e2739f15afa61ff4a19d6b624ede0', // TODO: Don't leave this here
+          accept: 'application/json'
         }
       });
 
@@ -141,14 +142,29 @@ export const igdbTest = {
     const totalResults = firstPage.headers['x-count'];
     const nextPage = buildNextPage(firstPage.headers['x-next-page']);
     const totalPages = Math.round(totalResults / pageSize);
-    let platformData = firstPage.data;
+    let platformData = firstPage.data.map(item => ({
+      igdbId: item.id,
+      name: item.name,
+      logo: item.logo,
+      igdbGameList: item.games
+    }));
 
     for (let i = 0; i < totalPages; i++) {
       const nextResult = await getPage(nextPage);
-      platformData = platformData.concat(nextResult.data);
+      const resultsWithCorrectedId = nextResult.data.map(item => ({
+        igdbId: item.id,
+        name: item.name,
+        logo: item.logo,
+        igdbGameList: item.games
+      }));
+      platformData = platformData.concat(resultsWithCorrectedId);
     }
 
-    return platformData;
+    await Platform.insertMany(platformData);
+
+    return {
+      message: `Added ${platformData.length} platforms`
+    };
 
     // Pull down platforms you need, get game lists, pull down games, make seed file
 

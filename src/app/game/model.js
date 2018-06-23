@@ -18,14 +18,45 @@ class GameRepository extends MongooseRepository {
           ref: 'Companies'
         }
       ],
-      platform: String,
+      platforms: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Platforms'
+        }
+      ],
       releaseDate: Date,
       description: String,
       cover: {
         url: String,
         width: Number,
-        height: Number
-      }
+        height: Number,
+        cloudinary_id: String
+      },
+      gameModes: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'GameModes'
+        }
+      ],
+      multiplayerModes: [
+        {
+          platform: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Platforms'
+          },
+          offlinecoop: Boolean,
+          onlinecoop: Boolean,
+          lancoop: Boolean,
+          campaigncoop: Boolean,
+          splitscreenonline: Boolean,
+          splitscreen: Boolean,
+          dropin: Boolean,
+          offlinecoopmax: Number,
+          onlinecoopmax: Number,
+          onlinemax: Number,
+          offlinemax: Number
+        }
+      ]
     };
   }
 

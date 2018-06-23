@@ -31,4 +31,8 @@ const setupMongoose = async () => {
   });
 };
 
+export const disconnectMongoose = async () => {
+  await mongoose.disconnect();
+};
+
 export default setupMongoose;

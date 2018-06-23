@@ -12,6 +12,7 @@ class PlatformRepository extends MongooseRepository {
         width: Number,
         height: Number
       },
+      igdbGameList: [String],
       games: [
         {
           type: mongoose.Schema.Types.ObjectId,
