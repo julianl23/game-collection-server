@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
-
-// TODO: Move this to an external somewhere like an env variable
-const dbAddress = 'mongodb://127.0.0.1:27017';
+const dbAddress = process.env.DB_ADDRESS;
 
 const setupMongoose = async () => {
   // set the promise used by mongo to be native promises

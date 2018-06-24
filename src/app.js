@@ -8,9 +8,8 @@ import setupMongoose from './config/mongoose';
 import schema from './types/schema';
 import User from './app/user/model';
 
-const HOST = 'localhost';
-const PORT = 3000;
-const secretKey = 'NeverShareYourSecret'; // TODO: Generate keys and store them in a proper spot
+const HOST = process.env.SERVER_HOST;
+const PORT = process.env.SERVER_PORT;
 
 setupMongoose();
 
@@ -74,8 +73,7 @@ const registerJWT = async server => {
   };
 
   server.auth.strategy('jwt', 'jwt', {
-    key: secretKey, // Never Share your secret key
-    // validate: validate, // validate function defined above
+    key: process.env.JWT_SECRET,
     validate,
     verifyOptions: { algorithms: ['HS256'] } // pick a strong algorithm
   });

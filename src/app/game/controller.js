@@ -98,8 +98,7 @@ export const igdbTest = {
 
     // *****************************************
 
-    // TODO: This is very bad don't leave it here
-    // const client = igdb('761e2739f15afa61ff4a19d6b624ede0');
+    // const client = igdb(process.env.IGDB_KEY);
 
     // ****** GAME FIELDS *****
 
@@ -124,7 +123,7 @@ export const igdbTest = {
     const getPage = async nextPage => {
       const page = await axios.get(nextPage, {
         headers: {
-          'user-key': '761e2739f15afa61ff4a19d6b624ede0', // TODO: Don't leave this here
+          'user-key': process.env.IGDB_KEY,
           accept: 'application/json'
         }
       });

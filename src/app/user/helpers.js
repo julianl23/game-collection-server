@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { secretKey } from '../../../config/constants';
 import User from './model';
 
 export async function hashPassword(pw) {
@@ -22,7 +21,7 @@ export const getToken = id => {
     {
       id: id
     },
-    secretKey,
+    process.env.JWT_SECRET,
     { expiresIn: '7d' }
   );
 };

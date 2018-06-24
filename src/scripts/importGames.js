@@ -1,6 +1,8 @@
 import axios from 'axios';
 import igdb from 'igdb-api-node';
+
 import winston from 'winston';
+import '../env';
 import setupMongoose, { disconnectMongoose } from '../config/mongoose';
 import Game from '../app/game/model';
 import Platform from '../app/platform/model';
@@ -16,14 +18,13 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()]
 });
 
-const igdbKey = '761e2739f15afa61ff4a19d6b624ede0'; // TODO: Don't leave this here
 const buildNextPage = pageUrl => `https://api-endpoint.igdb.com${pageUrl}`;
-const client = igdb('761e2739f15afa61ff4a19d6b624ede0');
+const client = igdb(process.env.IGDB_KEY);
 
 const getPage = async nextPage => {
   const page = await axios.get(nextPage, {
     headers: {
-      'user-key': igdbKey,
+      'user-key': process.env.IGDB_KEY,
       accept: 'application/json'
     }
   });
@@ -34,10 +35,14 @@ const getPage = async nextPage => {
 const retrieveCompany = async igdbId => {
   let retrievedCompany = await Company.findOne({ igdbId });
   if (!retrievedCompany) {
+    logger.info(`grabbing this company id from igdb: ${igdbId}`);
     const igdbResults = await client.companies({
       ids: [igdbId]
     });
     const devFromIgdb = igdbResults.body[0];
+    logger.info(
+      `found a company for id ${igdbId}: ${devFromIgdb ? true : false}`
+    );
 
     retrievedCompany = await Company.create({
       igdbId: devFromIgdb.id,
@@ -74,21 +79,27 @@ const createGamesFromData = async (data, pageNumber) => {
     const gameModeRefs = [];
     const multiplayerModes = [];
 
-    for (let platform of game.platforms) {
-      try {
-        const retrievedPlatform = await Platform.findOne({ igdbId: platform });
-        platformRefs.push(retrievedPlatform._id);
-      } catch (e) {
-        logger.error(e);
+    if (game.platforms) {
+      for (let platform of game.platforms) {
+        try {
+          const retrievedPlatform = await Platform.findOne({
+            igdbId: platform
+          });
+          platformRefs.push(retrievedPlatform._id);
+        } catch (e) {
+          logger.error(e);
+        }
       }
     }
 
-    for (let mode of game.game_modes) {
-      try {
-        const retrievedMode = await GameMode.findOne({ igdbId: mode });
-        gameModeRefs.push(retrievedMode._id);
-      } catch (e) {
-        logger.error(e);
+    if (game.game_modes) {
+      for (let mode of game.game_modes) {
+        try {
+          const retrievedMode = await GameMode.findOne({ igdbId: mode });
+          gameModeRefs.push(retrievedMode._id);
+        } catch (e) {
+          logger.error(e);
+        }
       }
     }
 
@@ -126,8 +137,13 @@ const createGamesFromData = async (data, pageNumber) => {
         multiplayerModes: multiplayerModes.length ? multiplayerModes : null
       });
 
-      await gameDeveloper.update({ $push: { developed: createdGame._id } });
-      await gamePublisher.update({ $push: { published: createdGame._id } });
+      if (Object.keys(gameDeveloper).length) {
+        await gameDeveloper.update({ $push: { developed: createdGame._id } });
+      }
+
+      if (Object.keys(gamePublisher).length) {
+        await gamePublisher.update({ $push: { published: createdGame._id } });
+      }
     } catch (e) {
       logger.error(e);
     }

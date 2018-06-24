@@ -1,3 +1,5 @@
+// Load a file to handle .env imports. See src/.env.js for more info
+import './env';
 import { bootstrapApp } from './app';
 
 /* Create HTTP server. */
