@@ -14,7 +14,14 @@ class GameCollectionRepository extends MongooseRepository {
             isPrivate: Boolean
           },
           borrowed: Boolean,
-          borrowedDate: Date
+          borrowedDate: Date,
+          cost: Number,
+          details: {
+            hasCartDiskItem: Boolean,
+            hasCaseBox: Boolean,
+            hasManual: Boolean,
+            hasOtherInserts: Boolean
+          }
         }
       ]
     };

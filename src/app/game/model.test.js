@@ -1,5 +1,5 @@
-jest.mock('../../../repositories/MongooseRepository');
-import model from '../model';
+jest.mock('../../repositories/MongooseRepository');
+import model from './model';
 
 describe('game', () => {
   describe('model', () => {

@@ -1,4 +1,4 @@
-import { getList, put, igdbTest } from './controller';
+import { getList, put } from './controller';
 
 const routes = [
   {
@@ -19,17 +19,6 @@ const routes = [
       auth: false
     },
     ...put
-  },
-  {
-    path: '/api/games/igdbTest',
-    method: 'GET',
-    options: {
-      log: {
-        collect: false
-      },
-      auth: false
-    },
-    ...igdbTest
   }
 ];
 

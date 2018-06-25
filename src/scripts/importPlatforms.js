@@ -1,23 +1,52 @@
-// import Platform from '../app/platform/model';
-// import seedData from '../data/platform-igdb-seed.json';
+import axios from 'axios';
+import Platform from '../app/platform/model';
 
-// const importPlatforms = async () => {
-//   let gamesToImport = [];
+const getPage = async nextPage => {
+  const page = await axios.get(nextPage, {
+    headers: {
+      'user-key': process.env.IGDB_KEY,
+      accept: 'application/json'
+    }
+  });
 
-//   for (const platform of seedData) {
-//     // seedData.forEach(async platform => {
-//     const { name, id, logo, games } = platform;
-//     const created = await Platform.create({
-//       igdbId: id,
-//       name,
-//       logo
-//       // games
-//     });
-//     gamesToImport = gamesToImport.concat(games);
-//     // });
-//   }
+  return page;
+};
 
-//   console.log('gamesToImport', gamesToImport.length);
-// };
+const buildNextPage = pageUrl => `https://api-endpoint.igdb.com${pageUrl}`;
 
-// importPlatforms();
+const importPlatforms = async () => {
+  const pageSize = 50;
+
+  const firstPage = await getPage(
+    `https://api-endpoint.igdb.com/platforms/?fields=id,name,summary,games&limit=${pageSize}&scroll=1`
+  );
+
+  const totalResults = firstPage.headers['x-count'];
+  const nextPage = buildNextPage(firstPage.headers['x-next-page']);
+  const totalPages = Math.round(totalResults / pageSize);
+  let platformData = firstPage.data.map(item => ({
+    igdbId: item.id,
+    name: item.name,
+    logo: item.logo,
+    igdbGameList: item.games
+  }));
+
+  for (let i = 0; i < totalPages; i++) {
+    const nextResult = await getPage(nextPage);
+    const resultsWithCorrectedId = nextResult.data.map(item => ({
+      igdbId: item.id,
+      name: item.name,
+      logo: item.logo,
+      igdbGameList: item.games
+    }));
+    platformData = platformData.concat(resultsWithCorrectedId);
+  }
+
+  await Platform.insertMany(platformData);
+
+  return {
+    message: `Added ${platformData.length} platforms`
+  };
+};
+
+importPlatforms();

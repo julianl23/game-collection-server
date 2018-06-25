@@ -1,6 +1,4 @@
 import axios from 'axios';
-import igdb from 'igdb-api-node';
-
 import winston from 'winston';
 import '../env';
 import setupMongoose, { disconnectMongoose } from '../config/mongoose';
@@ -19,7 +17,6 @@ const logger = winston.createLogger({
 });
 
 const buildNextPage = pageUrl => `https://api-endpoint.igdb.com${pageUrl}`;
-const client = igdb(process.env.IGDB_KEY);
 
 const getPage = async nextPage => {
   const page = await axios.get(nextPage, {
@@ -32,22 +29,14 @@ const getPage = async nextPage => {
   return page;
 };
 
-const retrieveCompany = async igdbId => {
+const retrieveCompany = async company => {
+  const igdbId = company.id;
   let retrievedCompany = await Company.findOne({ igdbId });
   if (!retrievedCompany) {
-    logger.info(`grabbing this company id from igdb: ${igdbId}`);
-    const igdbResults = await client.companies({
-      ids: [igdbId]
-    });
-    const devFromIgdb = igdbResults.body[0];
-    logger.info(
-      `found a company for id ${igdbId}: ${devFromIgdb ? true : false}`
-    );
-
     retrievedCompany = await Company.create({
-      igdbId: devFromIgdb.id,
-      name: devFromIgdb.name,
-      description: devFromIgdb.description
+      igdbId: company.id,
+      name: company.name,
+      description: company.description
     });
   }
 
@@ -57,16 +46,6 @@ const retrieveCompany = async igdbId => {
 const createGamesFromData = async (data, pageNumber) => {
   logger.info(`*****starting page import: ${pageNumber}`);
   for (let game of data) {
-    // look up the company for both developer and publisher.
-    // if we don't have it, pull it down and add it to db
-    // Let's just use the first item in the list for developers/publishers
-
-    // OK. Here's the plan. IGDB's games are a rollup of all platforms. That isn't entirely ideal
-    // for how I wanted to originally implement it. I could write around it and import a separate
-    // game for each platform, but that's dumb. Also, IGDB doesn't seem to have box art for individual platforms.
-    // This means that all search results should have a button to add individual platforms. It also means
-    // that game collections should be a collection of objects that have a ref to the game and a ref to the platform
-
     let gameDeveloper = game.developers
       ? await retrieveCompany(game.developers[0])
       : {};
@@ -167,13 +146,18 @@ const importGames = async () => {
     'publishers',
     'platforms',
     'game_modes',
-    'multiplayer_modes'
+    'multiplayer_modes',
+    'developers.name',
+    'developers.description',
+    'publishers.name',
+    'publishers.description'
   ].join(',');
 
   const pageSize = 50;
+  const filterType = 'not_in'; // this can be 'any' or 'not_in'
 
   const firstPage = await getPage(
-    `https://api-endpoint.igdb.com/games/?fields=${gameFields}&filter[release_dates.platform][any]=${platformList}&limit=${pageSize}&scroll=1`
+    `https://api-endpoint.igdb.com/games/?fields=${gameFields}&filter[release_dates.platform][${filterType}]=${platformList}&limit=${pageSize}&scroll=1&expand=developers,publishers`
   );
 
   console.time('page import'); // eslint-disable-line no-console

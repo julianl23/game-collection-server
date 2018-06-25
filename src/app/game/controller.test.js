@@ -1,8 +1,8 @@
 import Boom from 'boom';
-import { getList, put } from '../controller';
-import Game from '../model';
+import { getList, put } from './controller';
+import Game from './model';
 
-jest.mock('../model', () => ({
+jest.mock('./model', () => ({
   find: jest.fn(),
   create: jest.fn(),
   findOne: jest.fn(),
