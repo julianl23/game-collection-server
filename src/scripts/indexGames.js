@@ -25,11 +25,6 @@ const indexGames = async () => {
         }
       });
       indexesToPush.push({
-        // create: {
-        // _index: 'game',
-        // _type: 'game',
-        // _id: game._id.toString(),
-        // body: {
         igdbId: game.igdbId,
         title: game.title,
         developer: game.developer,
@@ -40,8 +35,6 @@ const indexGames = async () => {
         cover: game.cover,
         gameModes: game.gameModes,
         multiplayerModes: game.multiplayerModes
-        // }
-        // }
       });
     }
 
@@ -53,15 +46,15 @@ const indexGames = async () => {
   };
 
   for (let i = 0; i < pageCount; i++) {
-    console.time('Find and index page');
+    console.time('Find and index page'); // eslint-disable-line no-console
     currentPage = i;
     const games = await Game.find({})
       .skip(currentPage * pageSize)
       .limit(pageSize);
 
     await buildIndexes(games);
-    console.timeEnd('Find and index page');
-    console.log('Indexed page ', i + 1);
+    console.timeEnd('Find and index page'); // eslint-disable-line no-console
+    console.log('Indexed page ', i + 1); // eslint-disable-line no-console
   }
 };
 

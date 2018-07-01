@@ -1,5 +1,4 @@
 import MongooseRepository from '../MongooseRepository';
-import { Mongoose } from 'mongoose';
 
 jest.mock('mongoose', () => {
   return {
