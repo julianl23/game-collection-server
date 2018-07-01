@@ -10,10 +10,26 @@ jest.mock('mongoose', () => {
         findOneAndRemove: val => val,
         insertMany: val => val,
         update: val => val,
-        updateOne: val => val
+        updateOne: val => val,
+        search: val => val
       };
     }),
     Schema: jest.fn()
+  };
+});
+
+jest.mock('elasticsearch', () => {
+  return {
+    Client: jest.fn().mockImplementation(() => ({
+      search: jest.fn().mockImplementation(() => ({
+        hits: {
+          hits: {}
+        }
+      })),
+      update: jest.fn(),
+      delete: jest.fn(),
+      create: jest.fn()
+    }))
   };
 });
 
@@ -84,11 +100,11 @@ describe('repositories', () => {
       expect(value).toEqual(expected);
     });
 
-    it('calls the correct create function', () => {
+    it('calls the correct create function', async () => {
       const testInstance = new ImplementedTest();
       const expected = {};
 
-      const value = testInstance.create();
+      const value = await testInstance.create();
 
       expect(value).toEqual(expected);
     });
@@ -102,11 +118,11 @@ describe('repositories', () => {
       expect(value).toEqual(expected);
     });
 
-    it('calls the correct findOneAndRemove function', () => {
+    it('calls the correct findOneAndRemove function', async () => {
       const testInstance = new ImplementedTest();
       const expected = {};
 
-      const value = testInstance.findOneAndRemove();
+      const value = await testInstance.findOneAndRemove();
 
       expect(value).toEqual(expected);
     });
@@ -129,11 +145,20 @@ describe('repositories', () => {
       expect(value).toEqual(expected);
     });
 
-    it('calls the correct updateOne function', () => {
+    it('calls the correct updateOne function', async () => {
       const testInstance = new ImplementedTest();
       const expected = {};
 
-      const value = testInstance.updateOne();
+      const value = await testInstance.updateOne();
+
+      expect(value).toEqual(expected);
+    });
+
+    it('calls the correct search function', async () => {
+      const testInstance = new ImplementedTest();
+      const expected = {};
+
+      const value = await testInstance.search();
 
       expect(value).toEqual(expected);
     });

@@ -1,58 +1,85 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import resolvers from '../resolvers/resolvers';
 
-// Examples from https://dev-blog.apollodata.com/tutorial-building-a-graphql-server-cddaa023c035?_ga=2.16070707.401638683.1527376000-1121082364.1527376000
-// `
-// type Query {
-//   author(firstName: String, lastName: String): Author,
-//   allAuthors: [Author]
-//   getFortuneCoolie: String
-//   games: [Game]
-// }
-
-// type Author {
-//   id: Int
-//   firstName: String
-//   lastName: String
-//   posts: [Post]
-// }
-
-// type Post {
-//   id: Int
-//   title: String
-//   text: String
-//   views: Int
-//   author: Author
-// }
-// `
-
 const typeDefs = `
 type Query {
-  games: [Game]
-  game(id: String): Game
-  user(id: String): User
+  games(query: String): [Game]
+  game(_id: String): Game
+  user(_id: String): User
+}
+
+type Mutation {
+  AddGameToCollection(input: GameInput!): String
 }
 
 type Game {
-  id: String
+  _id: String
   title: String
-  developer: String
-  publisher: String
-  platform: String
+  developer: [String]
+  publisher: [String]
+  platforms: [String]
   releaseDate: String
   description: String
   createdAt: String
   updatedAt: String
+  igdbId: Int
+  cover: Cover,
+  gameModes: [String]
+  multiplayerModes: [MultiplayerMode]
+}
+
+input GameInput {
+  _id: String,
+  platform: String,
+  note: NoteInput,
+  borrowed: Boolean,
+  borrowedDate: String,
+  cost: Float,
+  details: DetailsInput
+}
+
+input NoteInput {
+  text: String,
+  isPrivate: Boolean
+}
+
+input DetailsInput {
+  hasCartDiskItem: Boolean,
+  hasCaseBox: Boolean,
+  hasManual: Boolean,
+  hasOtherInserts: Boolean
 }
 
 type User {
-  id: String
+  _id: String
   email: String
   username: String
   firstName: String
   lastName: String
   createdAt: String
   updatedAt: String
+}
+
+type Cover {
+  url: String,
+  width: Int,
+  height: Int,
+  cloudinary_id: String
+}
+
+type MultiplayerMode {
+  platform: String,
+  offlinecoop: Boolean,
+  onlinecoop: Boolean,
+  lancoop: Boolean,
+  campaigncoop: Boolean,
+  splitscreenonline: Boolean,
+  splitscreen: Boolean,
+  dropin: Boolean,
+  offlinecoopmax: Int,
+  onlinecoopmax: Int,
+  onlinemax: Int,
+  offlinemax: Int
 }
 `;
 

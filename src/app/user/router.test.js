@@ -1,6 +1,6 @@
-import router from '../router';
+import router from './router';
 
-jest.mock('../controller');
+jest.mock('./controller');
 
 describe('user', () => {
   describe('router', () => {

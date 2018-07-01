@@ -1,9 +1,9 @@
 import Boom from 'boom';
-import { get, addGame } from '../controller';
-import GameCollection from '../model';
-import User from '../../user/model';
+import { get, addGame } from './controller';
+import GameCollection from './model';
+import User from '../user/model';
 
-jest.mock('../model', () => ({
+jest.mock('./model', () => ({
   find: jest.fn(),
   create: jest.fn(),
   findOne: jest.fn(),
@@ -11,7 +11,7 @@ jest.mock('../model', () => ({
   save: jest.fn()
 }));
 
-jest.mock('../../user/model', () => ({
+jest.mock('./../user/model', () => ({
   find: jest.fn(),
   create: jest.fn(),
   findOne: jest.fn(),

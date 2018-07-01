@@ -1,16 +1,16 @@
 import Boom from 'boom';
-import { getList, put, login } from '../controller';
-import { getToken, verifyCredentials } from '../helpers';
-import User from '../model';
+import { getList, put, login } from './controller';
+import { getToken, verifyCredentials } from './helpers';
+import User from './model';
 
-jest.mock('../model', () => ({
+jest.mock('./model', () => ({
   find: jest.fn(),
   create: jest.fn(),
   findOne: jest.fn(),
   findOneAndRemove: jest.fn()
 }));
 
-jest.mock('../helpers', () => ({
+jest.mock('./helpers', () => ({
   getToken: jest.fn(),
   hashPassword: jest.fn(),
   verifyCredentials: jest.fn()

@@ -41,13 +41,7 @@ export const verifyCredentials = async req => {
       });
     });
 
-    if (passwordIsValid) {
-      return user;
-    } else {
-      return {
-        error: 'password invalid'
-      };
-    }
+    return passwordIsValid ? user : passwordIsValid;
   } else {
     return false;
   }

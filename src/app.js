@@ -35,12 +35,14 @@ const registerGraphQL = async server => {
     plugin: graphqlHapi,
     options: {
       path: '/graphql',
-      graphqlOptions: {
-        schema: schema
+      graphqlOptions: async request => {
+        return {
+          schema: schema,
+          context: { user: request.auth.credentials }
+        };
       },
       route: {
-        cors: true,
-        auth: false
+        cors: true
       }
     }
   });
@@ -53,8 +55,11 @@ const registerGraphQL = async server => {
         cors: true,
         auth: false
       },
-      graphiqlOptions: {
-        endpointURL: '/graphql'
+      graphiqlOptions: async request => {
+        return {
+          endpointURL: '/graphql',
+          passHeader: `'Authorization': 'Bearer ${request.query.authorization}'`
+        };
       }
     }
   });
@@ -65,11 +70,16 @@ const registerJWT = async server => {
 
   // TODO: Re-implement this in mongo and move it elsewhere
   const validate = async function(decoded) {
+    const response = { isValid: false };
     const validateUser = await User.findOne({
       _id: mongoose.Types.ObjectId(decoded.id)
     });
+    if (validateUser) {
+      response.isValid = true;
+      response.credentials = validateUser;
+    }
 
-    return { isValid: validateUser ? true : false };
+    return response;
   };
 
   server.auth.strategy('jwt', 'jwt', {
@@ -83,8 +93,8 @@ const registerJWT = async server => {
 
 export const bootstrapApp = async () => {
   await registerPino(app);
-  await registerGraphQL(app);
   await registerJWT(app);
+  await registerGraphQL(app);
 
   routes.forEach(route => {
     app.route(route);
