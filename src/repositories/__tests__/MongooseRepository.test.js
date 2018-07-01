@@ -1,11 +1,12 @@
 import MongooseRepository from '../MongooseRepository';
+import { Mongoose } from 'mongoose';
 
 jest.mock('mongoose', () => {
   return {
-    model: jest.fn(() => {
+    model: jest.fn().mockImplementation(() => {
       return {
         find: val => val,
-        create: val => val,
+        create: () => ({ _id: 12345 }),
         findOne: val => val,
         findOneAndRemove: val => val,
         insertMany: val => val,
@@ -23,7 +24,7 @@ jest.mock('elasticsearch', () => {
     Client: jest.fn().mockImplementation(() => ({
       search: jest.fn().mockImplementation(() => ({
         hits: {
-          hits: {}
+          hits: []
         }
       })),
       update: jest.fn(),
@@ -102,7 +103,7 @@ describe('repositories', () => {
 
     it('calls the correct create function', async () => {
       const testInstance = new ImplementedTest();
-      const expected = {};
+      const expected = { _id: 12345 };
 
       const value = await testInstance.create();
 
@@ -156,7 +157,7 @@ describe('repositories', () => {
 
     it('calls the correct search function', async () => {
       const testInstance = new ImplementedTest();
-      const expected = {};
+      const expected = [];
 
       const value = await testInstance.search();
 
