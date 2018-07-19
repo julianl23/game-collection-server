@@ -9,7 +9,8 @@ type Query {
 }
 
 type Mutation {
-  AddGameToCollection(input: GameInput!): String
+  AddGameToCollection(input: GameInput!): String,
+  Login(input: LoginInput!): User
 }
 
 type Game {
@@ -50,6 +51,11 @@ input DetailsInput {
   hasOtherInserts: Boolean
 }
 
+input LoginInput {
+  email: String,
+  password: String
+}
+
 type User {
   _id: String
   email: String
@@ -58,6 +64,7 @@ type User {
   lastName: String
   createdAt: String
   updatedAt: String
+  token: String
 }
 
 type Cover {

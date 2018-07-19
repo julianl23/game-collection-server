@@ -42,7 +42,10 @@ const registerGraphQL = async server => {
         };
       },
       route: {
-        cors: true
+        cors: true,
+        auth: {
+          mode: 'optional'
+        }
       }
     }
   });
@@ -53,12 +56,16 @@ const registerGraphQL = async server => {
       path: '/graphiql',
       route: {
         cors: true,
-        auth: false
+        auth: {
+          mode: 'optional'
+        }
       },
       graphiqlOptions: async request => {
         return {
           endpointURL: '/graphql',
-          passHeader: `'Authorization': 'Bearer ${request.query.authorization}'`
+          passHeader: request.query.authorization
+            ? `'Authorization': 'Bearer ${request.query.authorization}'`
+            : null
         };
       }
     }
@@ -68,12 +75,12 @@ const registerGraphQL = async server => {
 const registerJWT = async server => {
   await server.register(hapiAuthJwt);
 
-  // TODO: Re-implement this in mongo and move it elsewhere
   const validate = async function(decoded) {
     const response = { isValid: false };
     const validateUser = await User.findOne({
       _id: mongoose.Types.ObjectId(decoded.id)
     });
+
     if (validateUser) {
       response.isValid = true;
       response.credentials = validateUser;

@@ -26,11 +26,9 @@ export const getToken = id => {
   );
 };
 
-export const verifyCredentials = async req => {
-  const password = req.payload.password;
-
+export const verifyCredentials = async ({ email, password }) => {
   const user = await User.findOne({
-    email: req.payload.email
+    email
   });
 
   if (user) {

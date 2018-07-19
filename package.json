@@ -7,7 +7,8 @@
   "author": "Julian Lord <julianl23@gmail.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "apollo-server-hapi": "^1.3.6",
+    "apollo-server": "^2.0.0-rc.5",
+    "apollo-server-hapi": "^1.4.0",
     "axios": "^0.18.0",
     "babel-eslint": "^8.2.3",
     "bcrypt": "^2.0.1",
