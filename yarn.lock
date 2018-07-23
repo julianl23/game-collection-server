@@ -2884,9 +2884,9 @@ hapi-scope-start@2.x.x:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/hapi-scope-start/-/hapi-scope-start-2.1.1.tgz#7495a726fe72b7bca8de2cdcc1d87cd8ce6ab4f2"
 
-hapi@^17.5.0:
-  version "17.5.0"
-  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.5.0.tgz#9fc33f10d6f563d0203853937b60dd13a59b51ce"
+hapi@^17.5.2:
+  version "17.5.2"
+  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.5.2.tgz#9c5823cdcdd17e5621ebc8928aefb144d033caac"
   dependencies:
     accept "3.x.x"
     ammo "3.x.x"

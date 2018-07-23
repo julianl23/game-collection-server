@@ -69,7 +69,7 @@ export const put = {
 
 export const login = {
   handler: async (request, h) => {
-    const user = await verifyCredentials(request);
+    const user = await verifyCredentials(request.payload);
 
     if (!user || user.error) {
       return Boom.unauthorized('Invalid credentials');
@@ -90,6 +90,7 @@ export const login = {
       .response({
         user: responseUser
       })
+      .state('token', token)
       .header('Authorization', token)
       .code(200);
   }

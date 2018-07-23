@@ -89,26 +89,26 @@ const resolvers = {
       currentUser.gameCollection.save();
 
       return gameId;
-    },
-    async Login(root, args) {
-      const { email, password } = args.input;
-      const user = await verifyCredentials({ email, password });
-
-      if (!user || user.error) {
-        throw new ApolloError('Invalid credentials', 401);
-      }
-
-      const token = getToken(user.id);
-
-      return {
-        _id: user.id,
-        email: user.email,
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        token
-      };
     }
+    // async Login(root, args) {
+    //   const { email, password } = args.input;
+    //   const user = await verifyCredentials({ email, password });
+
+    //   if (!user || user.error) {
+    //     throw new ApolloError('Invalid credentials', 401);
+    //   }
+
+    //   const token = getToken(user.id);
+
+    //   return {
+    //     _id: user.id,
+    //     email: user.email,
+    //     username: user.username,
+    //     firstName: user.firstName,
+    //     lastName: user.lastName,
+    //     token
+    //   };
+    // }
   }
 };
 

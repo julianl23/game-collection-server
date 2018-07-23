@@ -19,6 +19,17 @@ const app = new Hapi.server({
   debug: { request: ['error'] }
 });
 
+// TODO: This should ideally be a secure cookie, right?
+app.state('token', {
+  ttl: 30 * 24 * 60 * 60 * 1000, // expires in 30 days
+  encoding: 'none', // we already used JWT to encode
+  isSecure: false, // warm & fuzzy feelings
+  isHttpOnly: true, // prevent client alteration
+  clearInvalid: false, // remove invalid cookies
+  strictHeader: true, // don't allow violations of RFC 6265
+  path: '/' // set the cookie for all routes
+});
+
 const registerPino = async (server, options = {}) => {
   await server.register({
     plugin: HapiPino,
@@ -38,7 +49,7 @@ const registerGraphQL = async server => {
       graphqlOptions: async request => {
         return {
           schema: schema,
-          context: { user: request.auth.credentials }
+          context: { user: request.auth.credentials, request }
         };
       },
       route: {
