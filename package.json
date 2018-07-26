@@ -45,7 +45,7 @@
     "precommit": "lint-staged",
     "prepush": "yarn test && yarn lint",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "lint-staged": {
     "*.{js,json,css,md}": ["prettier --write", "git add"]

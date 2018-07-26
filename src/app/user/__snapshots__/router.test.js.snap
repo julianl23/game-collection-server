@@ -29,6 +29,12 @@ Array [
     "method": "POST",
     "options": Object {
       "auth": false,
+      "cors": Object {
+        "credentials": true,
+        "origin": Array [
+          "*",
+        ],
+      },
       "log": Object {
         "collect": true,
       },

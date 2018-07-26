@@ -28,6 +28,10 @@ const routes = [
     method: 'POST',
     options: {
       log: { collect: true },
+      cors: {
+        origin: ['*'],
+        credentials: true
+      },
       auth: false
     },
     ...login
