@@ -6,6 +6,7 @@ type Query {
   games(query: String): [Game]
   game(_id: String): Game
   user(_id: String): User
+  currentUser: User
 }
 
 type Mutation {
@@ -24,7 +25,7 @@ type Game {
   createdAt: String
   updatedAt: String
   igdbId: Int
-  cover: Cover,
+  cover: Cover
   gameModes: [String]
   multiplayerModes: [MultiplayerMode]
 }
@@ -65,6 +66,7 @@ type User {
   createdAt: String
   updatedAt: String
   token: String
+  gameCollection: Collection
 }
 
 type Cover {
@@ -87,6 +89,14 @@ type MultiplayerMode {
   onlinecoopmax: Int,
   onlinemax: Int,
   offlinemax: Int
+}
+
+type Collection {
+  _id: String
+  owner: String
+  items: [String]
+  createdAt: String
+  updatedAt: String
 }
 `;
 

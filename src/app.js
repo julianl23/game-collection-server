@@ -24,7 +24,7 @@ app.state('token', {
   ttl: 30 * 24 * 60 * 60 * 1000, // expires in 30 days
   encoding: 'none', // we already used JWT to encode
   isSecure: false, // warm & fuzzy feelings
-  isHttpOnly: true, // prevent client alteration
+  isHttpOnly: false, // prevent client alteration
   clearInvalid: false, // remove invalid cookies
   strictHeader: true, // don't allow violations of RFC 6265
   path: '/' // set the cookie for all routes
@@ -53,7 +53,10 @@ const registerGraphQL = async server => {
         };
       },
       route: {
-        cors: true,
+        cors: {
+          credentials: true,
+          origin: ['*']
+        },
         auth: {
           mode: 'optional'
         }
