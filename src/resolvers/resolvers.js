@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
+import { Prisma } from 'prisma-binding';
 import Game from '../app/game/model';
 import User from '../app/user/model';
+
+const prisma = new Prisma({
+  typeDefs: 'src/generated/prisma.graphql',
+  endpoint: 'http://localhost:4466' // TODO: This would have to be changed to an env variable
+});
 
 const resolvers = {
   Query: {
@@ -13,8 +19,14 @@ const resolvers = {
       return await Game.findOne({ _id: mongoose.Types.ObjectId(_id) });
     },
     async user(root, args) {
-      const { _id } = args;
-      return await User.findOne({ _id: mongoose.Types.ObjectId(_id) });
+      // const { _id } = args;
+      // return await User.findOne({ _id: mongoose.Types.ObjectId(_id) });
+
+      // TODO: Write actual code to retreive a single user
+      const users = await prisma.query.users(null, '{ id name }');
+      console.log(users);
+      return null;
+      // return users;
     },
     async currentUser(root, args, context) {
       const contextUser = context.user;

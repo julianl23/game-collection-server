@@ -1,0 +1,110 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String!
+  username: String!
+  password: String!
+  firstName: String
+  lastName: String
+  admin: Boolean
+  gameCollection: GameCollection!
+    @relation(name: "UserGameCollection", onDelete: CASCADE)
+}
+
+type Game {
+  id: ID! @unique
+  igdb_id: Int!
+  title: String!
+  developer: [Company!]! @relation(name: "GameDevelopers")
+  publisher: [Company!]! @relation(name: "GamePublishers")
+  platforms: [Platform!]!
+  releaseDate: DateTime
+  description: String
+  cover: Cover
+  gameModes: [GameMode!]!
+  multiplayerModes: [MultiplayerMode!]!
+}
+
+type Cover {
+  id: ID! @unique
+  url: String
+  width: Float
+  height: Float
+  cloudinary_id: String
+}
+
+type MultiplayerMode {
+  id: ID! @unique
+  platform: Platform
+  offlinecoop: Boolean
+  onlinecoop: Boolean
+  lancoop: Boolean
+  campaigncoop: Boolean
+  splitscreenonline: Boolean
+  splitscreen: Boolean
+  dropin: Boolean
+  offlinecoopmax: Int
+  onlinecoopmax: Int
+  onlinemax: Int
+  offlinemax: Int
+}
+
+type Platform {
+  id: ID! @unique
+  igdb_id: Int!
+  name: String!
+  logo: PlatformLogo
+  igdbGameList: [String!]!
+  games: [Game!]!
+}
+
+type PlatformLogo {
+  id: ID! @unique
+  url: String
+  cloudinary_id: String
+  width: Float
+  height: Float
+}
+
+type GameMode {
+  id: ID! @unique
+  igdb_id: Int!
+  name: String!
+}
+
+type Company {
+  id: ID! @unique
+  igdb_id: Int!
+  name: String!
+  description: String
+  published: [Game!]! @relation(name: "GamePublishers")
+  developed: [Game!]! @relation(name: "GameDevelopers")
+}
+
+type GameCollection {
+  id: ID! @unique
+  owner: User! @relation(name: "GameCollectionOwner", onDelete: SET_NULL)
+  items: [GameCollectionDetails!]!
+}
+
+type GameCollectionItem {
+  game: Game!
+  platform: Platform!
+  note: GameCollectionNote
+  borrowed: Boolean
+  borrowedDate: DateTime
+  cost: Float
+  details: GameCollectionDetails
+}
+
+type GameCollectionNote {
+  text: String!
+  isPrivate: Boolean
+}
+
+type GameCollectionDetails {
+  hasCartDiskItem: Boolean
+  hasCaseBox: Boolean
+  hasManual: Boolean
+  hasOtherInserts: Boolean
+}

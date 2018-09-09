@@ -1,0 +1,3701 @@
+# source: http://localhost:4466/gamecollection/development
+# timestamp: Sat Sep 08 2018 21:11:19 GMT-0400 (Eastern Daylight Time)
+
+type AggregateCompany {
+  count: Int!
+}
+
+type AggregateCover {
+  count: Int!
+}
+
+type AggregateGame {
+  count: Int!
+}
+
+type AggregateGameCollection {
+  count: Int!
+}
+
+type AggregateGameCollectionDetails {
+  count: Int!
+}
+
+type AggregateGameCollectionItem {
+  count: Int!
+}
+
+type AggregateGameCollectionNote {
+  count: Int!
+}
+
+type AggregateGameMode {
+  count: Int!
+}
+
+type AggregateMultiplayerMode {
+  count: Int!
+}
+
+type AggregatePlatform {
+  count: Int!
+}
+
+type AggregatePlatformLogo {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Company implements Node {
+  id: ID!
+  igdb_id: Int!
+  name: String!
+  description: String
+  published(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game!]
+  developed(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game!]
+}
+
+"""A connection to a list of items."""
+type CompanyConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CompanyEdge]!
+  aggregate: AggregateCompany!
+}
+
+input CompanyCreateInput {
+  igdb_id: Int!
+  name: String!
+  description: String
+  published: GameCreateManyWithoutPublisherInput
+  developed: GameCreateManyWithoutDeveloperInput
+}
+
+input CompanyCreateManyWithoutDevelopedInput {
+  create: [CompanyCreateWithoutDevelopedInput!]
+  connect: [CompanyWhereUniqueInput!]
+}
+
+input CompanyCreateManyWithoutPublishedInput {
+  create: [CompanyCreateWithoutPublishedInput!]
+  connect: [CompanyWhereUniqueInput!]
+}
+
+input CompanyCreateWithoutDevelopedInput {
+  igdb_id: Int!
+  name: String!
+  description: String
+  published: GameCreateManyWithoutPublisherInput
+}
+
+input CompanyCreateWithoutPublishedInput {
+  igdb_id: Int!
+  name: String!
+  description: String
+  developed: GameCreateManyWithoutDeveloperInput
+}
+
+"""An edge in a connection."""
+type CompanyEdge {
+  """The item at the end of the edge."""
+  node: Company!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CompanyOrderByInput {
+  id_ASC
+  id_DESC
+  igdb_id_ASC
+  igdb_id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CompanyPreviousValues {
+  id: ID!
+  igdb_id: Int!
+  name: String!
+  description: String
+}
+
+type CompanySubscriptionPayload {
+  mutation: MutationType!
+  node: Company
+  updatedFields: [String!]
+  previousValues: CompanyPreviousValues
+}
+
+input CompanySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CompanySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CompanySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CompanySubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CompanyWhereInput
+}
+
+input CompanyUpdateInput {
+  igdb_id: Int
+  name: String
+  description: String
+  published: GameUpdateManyWithoutPublisherInput
+  developed: GameUpdateManyWithoutDeveloperInput
+}
+
+input CompanyUpdateManyWithoutDevelopedInput {
+  create: [CompanyCreateWithoutDevelopedInput!]
+  connect: [CompanyWhereUniqueInput!]
+  disconnect: [CompanyWhereUniqueInput!]
+  delete: [CompanyWhereUniqueInput!]
+  update: [CompanyUpdateWithWhereUniqueWithoutDevelopedInput!]
+  upsert: [CompanyUpsertWithWhereUniqueWithoutDevelopedInput!]
+}
+
+input CompanyUpdateManyWithoutPublishedInput {
+  create: [CompanyCreateWithoutPublishedInput!]
+  connect: [CompanyWhereUniqueInput!]
+  disconnect: [CompanyWhereUniqueInput!]
+  delete: [CompanyWhereUniqueInput!]
+  update: [CompanyUpdateWithWhereUniqueWithoutPublishedInput!]
+  upsert: [CompanyUpsertWithWhereUniqueWithoutPublishedInput!]
+}
+
+input CompanyUpdateWithoutDevelopedDataInput {
+  igdb_id: Int
+  name: String
+  description: String
+  published: GameUpdateManyWithoutPublisherInput
+}
+
+input CompanyUpdateWithoutPublishedDataInput {
+  igdb_id: Int
+  name: String
+  description: String
+  developed: GameUpdateManyWithoutDeveloperInput
+}
+
+input CompanyUpdateWithWhereUniqueWithoutDevelopedInput {
+  where: CompanyWhereUniqueInput!
+  data: CompanyUpdateWithoutDevelopedDataInput!
+}
+
+input CompanyUpdateWithWhereUniqueWithoutPublishedInput {
+  where: CompanyWhereUniqueInput!
+  data: CompanyUpdateWithoutPublishedDataInput!
+}
+
+input CompanyUpsertWithWhereUniqueWithoutDevelopedInput {
+  where: CompanyWhereUniqueInput!
+  update: CompanyUpdateWithoutDevelopedDataInput!
+  create: CompanyCreateWithoutDevelopedInput!
+}
+
+input CompanyUpsertWithWhereUniqueWithoutPublishedInput {
+  where: CompanyWhereUniqueInput!
+  update: CompanyUpdateWithoutPublishedDataInput!
+  create: CompanyCreateWithoutPublishedInput!
+}
+
+input CompanyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CompanyWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CompanyWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CompanyWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  igdb_id: Int
+
+  """All values that are not equal to given value."""
+  igdb_id_not: Int
+
+  """All values that are contained in given list."""
+  igdb_id_in: [Int!]
+
+  """All values that are not contained in given list."""
+  igdb_id_not_in: [Int!]
+
+  """All values less than the given value."""
+  igdb_id_lt: Int
+
+  """All values less than or equal the given value."""
+  igdb_id_lte: Int
+
+  """All values greater than the given value."""
+  igdb_id_gt: Int
+
+  """All values greater than or equal the given value."""
+  igdb_id_gte: Int
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  published_every: GameWhereInput
+  published_some: GameWhereInput
+  published_none: GameWhereInput
+  developed_every: GameWhereInput
+  developed_some: GameWhereInput
+  developed_none: GameWhereInput
+}
+
+input CompanyWhereUniqueInput {
+  id: ID
+}
+
+type Cover implements Node {
+  id: ID!
+  url: String
+  width: Float
+  height: Float
+  cloudinary_id: String
+}
+
+"""A connection to a list of items."""
+type CoverConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CoverEdge]!
+  aggregate: AggregateCover!
+}
+
+input CoverCreateInput {
+  url: String
+  width: Float
+  height: Float
+  cloudinary_id: String
+}
+
+input CoverCreateOneInput {
+  create: CoverCreateInput
+  connect: CoverWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type CoverEdge {
+  """The item at the end of the edge."""
+  node: Cover!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CoverOrderByInput {
+  id_ASC
+  id_DESC
+  url_ASC
+  url_DESC
+  width_ASC
+  width_DESC
+  height_ASC
+  height_DESC
+  cloudinary_id_ASC
+  cloudinary_id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CoverPreviousValues {
+  id: ID!
+  url: String
+  width: Float
+  height: Float
+  cloudinary_id: String
+}
+
+type CoverSubscriptionPayload {
+  mutation: MutationType!
+  node: Cover
+  updatedFields: [String!]
+  previousValues: CoverPreviousValues
+}
+
+input CoverSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CoverSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CoverSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CoverSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CoverWhereInput
+}
+
+input CoverUpdateDataInput {
+  url: String
+  width: Float
+  height: Float
+  cloudinary_id: String
+}
+
+input CoverUpdateInput {
+  url: String
+  width: Float
+  height: Float
+  cloudinary_id: String
+}
+
+input CoverUpdateOneInput {
+  create: CoverCreateInput
+  connect: CoverWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: CoverUpdateDataInput
+  upsert: CoverUpsertNestedInput
+}
+
+input CoverUpsertNestedInput {
+  update: CoverUpdateDataInput!
+  create: CoverCreateInput!
+}
+
+input CoverWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CoverWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CoverWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CoverWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  width: Float
+
+  """All values that are not equal to given value."""
+  width_not: Float
+
+  """All values that are contained in given list."""
+  width_in: [Float!]
+
+  """All values that are not contained in given list."""
+  width_not_in: [Float!]
+
+  """All values less than the given value."""
+  width_lt: Float
+
+  """All values less than or equal the given value."""
+  width_lte: Float
+
+  """All values greater than the given value."""
+  width_gt: Float
+
+  """All values greater than or equal the given value."""
+  width_gte: Float
+  height: Float
+
+  """All values that are not equal to given value."""
+  height_not: Float
+
+  """All values that are contained in given list."""
+  height_in: [Float!]
+
+  """All values that are not contained in given list."""
+  height_not_in: [Float!]
+
+  """All values less than the given value."""
+  height_lt: Float
+
+  """All values less than or equal the given value."""
+  height_lte: Float
+
+  """All values greater than the given value."""
+  height_gt: Float
+
+  """All values greater than or equal the given value."""
+  height_gte: Float
+  cloudinary_id: String
+
+  """All values that are not equal to given value."""
+  cloudinary_id_not: String
+
+  """All values that are contained in given list."""
+  cloudinary_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  cloudinary_id_not_in: [String!]
+
+  """All values less than the given value."""
+  cloudinary_id_lt: String
+
+  """All values less than or equal the given value."""
+  cloudinary_id_lte: String
+
+  """All values greater than the given value."""
+  cloudinary_id_gt: String
+
+  """All values greater than or equal the given value."""
+  cloudinary_id_gte: String
+
+  """All values containing the given string."""
+  cloudinary_id_contains: String
+
+  """All values not containing the given string."""
+  cloudinary_id_not_contains: String
+
+  """All values starting with the given string."""
+  cloudinary_id_starts_with: String
+
+  """All values not starting with the given string."""
+  cloudinary_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  cloudinary_id_ends_with: String
+
+  """All values not ending with the given string."""
+  cloudinary_id_not_ends_with: String
+}
+
+input CoverWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+type Game implements Node {
+  id: ID!
+  igdb_id: Int!
+  title: String!
+  developer(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Company!]
+  publisher(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Company!]
+  platforms(where: PlatformWhereInput, orderBy: PlatformOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Platform!]
+  releaseDate: DateTime
+  description: String
+  cover(where: CoverWhereInput): Cover
+  gameModes(where: GameModeWhereInput, orderBy: GameModeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GameMode!]
+  multiplayerModes(where: MultiplayerModeWhereInput, orderBy: MultiplayerModeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MultiplayerMode!]
+}
+
+type GameCollection implements Node {
+  id: ID!
+  owner(where: UserWhereInput): User!
+  items(where: GameCollectionDetailsWhereInput, orderBy: GameCollectionDetailsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GameCollectionDetails!]
+}
+
+"""A connection to a list of items."""
+type GameCollectionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [GameCollectionEdge]!
+  aggregate: AggregateGameCollection!
+}
+
+input GameCollectionCreateInput {
+  owner: UserCreateOneInput!
+  items: GameCollectionDetailsCreateManyInput
+}
+
+input GameCollectionCreateOneInput {
+  create: GameCollectionCreateInput
+  connect: GameCollectionWhereUniqueInput
+}
+
+type GameCollectionDetails {
+  hasCartDiskItem: Boolean
+  hasCaseBox: Boolean
+  hasManual: Boolean
+  hasOtherInserts: Boolean
+}
+
+"""A connection to a list of items."""
+type GameCollectionDetailsConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [GameCollectionDetailsEdge]!
+  aggregate: AggregateGameCollectionDetails!
+}
+
+input GameCollectionDetailsCreateInput {
+  hasCartDiskItem: Boolean
+  hasCaseBox: Boolean
+  hasManual: Boolean
+  hasOtherInserts: Boolean
+}
+
+input GameCollectionDetailsCreateManyInput {
+  create: [GameCollectionDetailsCreateInput!]
+}
+
+input GameCollectionDetailsCreateOneInput {
+  create: GameCollectionDetailsCreateInput
+}
+
+"""An edge in a connection."""
+type GameCollectionDetailsEdge {
+  """The item at the end of the edge."""
+  node: GameCollectionDetails!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum GameCollectionDetailsOrderByInput {
+  hasCartDiskItem_ASC
+  hasCartDiskItem_DESC
+  hasCaseBox_ASC
+  hasCaseBox_DESC
+  hasManual_ASC
+  hasManual_DESC
+  hasOtherInserts_ASC
+  hasOtherInserts_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type GameCollectionDetailsPreviousValues {
+  hasCartDiskItem: Boolean
+  hasCaseBox: Boolean
+  hasManual: Boolean
+  hasOtherInserts: Boolean
+}
+
+type GameCollectionDetailsSubscriptionPayload {
+  mutation: MutationType!
+  node: GameCollectionDetails
+  updatedFields: [String!]
+  previousValues: GameCollectionDetailsPreviousValues
+}
+
+input GameCollectionDetailsSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameCollectionDetailsSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameCollectionDetailsSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameCollectionDetailsSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GameCollectionDetailsWhereInput
+}
+
+input GameCollectionDetailsUpdateDataInput {
+  hasCartDiskItem: Boolean
+  hasCaseBox: Boolean
+  hasManual: Boolean
+  hasOtherInserts: Boolean
+}
+
+input GameCollectionDetailsUpdateInput {
+  hasCartDiskItem: Boolean
+  hasCaseBox: Boolean
+  hasManual: Boolean
+  hasOtherInserts: Boolean
+}
+
+input GameCollectionDetailsUpdateManyInput {
+  create: [GameCollectionDetailsCreateInput!]
+}
+
+input GameCollectionDetailsUpdateOneInput {
+  create: GameCollectionDetailsCreateInput
+  disconnect: Boolean
+  delete: Boolean
+  update: GameCollectionDetailsUpdateDataInput
+  upsert: GameCollectionDetailsUpsertNestedInput
+}
+
+input GameCollectionDetailsUpsertNestedInput {
+  update: GameCollectionDetailsUpdateDataInput!
+  create: GameCollectionDetailsCreateInput!
+}
+
+input GameCollectionDetailsWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameCollectionDetailsWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameCollectionDetailsWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameCollectionDetailsWhereInput!]
+  hasCartDiskItem: Boolean
+
+  """All values that are not equal to given value."""
+  hasCartDiskItem_not: Boolean
+  hasCaseBox: Boolean
+
+  """All values that are not equal to given value."""
+  hasCaseBox_not: Boolean
+  hasManual: Boolean
+
+  """All values that are not equal to given value."""
+  hasManual_not: Boolean
+  hasOtherInserts: Boolean
+
+  """All values that are not equal to given value."""
+  hasOtherInserts_not: Boolean
+}
+
+"""An edge in a connection."""
+type GameCollectionEdge {
+  """The item at the end of the edge."""
+  node: GameCollection!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type GameCollectionItem {
+  game(where: GameWhereInput): Game!
+  platform(where: PlatformWhereInput): Platform!
+  note(where: GameCollectionNoteWhereInput): GameCollectionNote
+  borrowed: Boolean
+  borrowedDate: DateTime
+  cost: Float
+  details(where: GameCollectionDetailsWhereInput): GameCollectionDetails
+}
+
+"""A connection to a list of items."""
+type GameCollectionItemConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [GameCollectionItemEdge]!
+  aggregate: AggregateGameCollectionItem!
+}
+
+input GameCollectionItemCreateInput {
+  borrowed: Boolean
+  borrowedDate: DateTime
+  cost: Float
+  game: GameCreateOneInput!
+  platform: PlatformCreateOneInput!
+  note: GameCollectionNoteCreateOneInput
+  details: GameCollectionDetailsCreateOneInput
+}
+
+"""An edge in a connection."""
+type GameCollectionItemEdge {
+  """The item at the end of the edge."""
+  node: GameCollectionItem!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum GameCollectionItemOrderByInput {
+  borrowed_ASC
+  borrowed_DESC
+  borrowedDate_ASC
+  borrowedDate_DESC
+  cost_ASC
+  cost_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type GameCollectionItemPreviousValues {
+  borrowed: Boolean
+  borrowedDate: DateTime
+  cost: Float
+}
+
+type GameCollectionItemSubscriptionPayload {
+  mutation: MutationType!
+  node: GameCollectionItem
+  updatedFields: [String!]
+  previousValues: GameCollectionItemPreviousValues
+}
+
+input GameCollectionItemSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameCollectionItemSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameCollectionItemSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameCollectionItemSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GameCollectionItemWhereInput
+}
+
+input GameCollectionItemUpdateInput {
+  borrowed: Boolean
+  borrowedDate: DateTime
+  cost: Float
+  game: GameUpdateOneInput
+  platform: PlatformUpdateOneInput
+  note: GameCollectionNoteUpdateOneInput
+  details: GameCollectionDetailsUpdateOneInput
+}
+
+input GameCollectionItemWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameCollectionItemWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameCollectionItemWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameCollectionItemWhereInput!]
+  borrowed: Boolean
+
+  """All values that are not equal to given value."""
+  borrowed_not: Boolean
+  borrowedDate: DateTime
+
+  """All values that are not equal to given value."""
+  borrowedDate_not: DateTime
+
+  """All values that are contained in given list."""
+  borrowedDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  borrowedDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  borrowedDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  borrowedDate_lte: DateTime
+
+  """All values greater than the given value."""
+  borrowedDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  borrowedDate_gte: DateTime
+  cost: Float
+
+  """All values that are not equal to given value."""
+  cost_not: Float
+
+  """All values that are contained in given list."""
+  cost_in: [Float!]
+
+  """All values that are not contained in given list."""
+  cost_not_in: [Float!]
+
+  """All values less than the given value."""
+  cost_lt: Float
+
+  """All values less than or equal the given value."""
+  cost_lte: Float
+
+  """All values greater than the given value."""
+  cost_gt: Float
+
+  """All values greater than or equal the given value."""
+  cost_gte: Float
+  game: GameWhereInput
+  platform: PlatformWhereInput
+  note: GameCollectionNoteWhereInput
+  details: GameCollectionDetailsWhereInput
+}
+
+type GameCollectionNote {
+  text: String!
+  isPrivate: Boolean
+}
+
+"""A connection to a list of items."""
+type GameCollectionNoteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [GameCollectionNoteEdge]!
+  aggregate: AggregateGameCollectionNote!
+}
+
+input GameCollectionNoteCreateInput {
+  text: String!
+  isPrivate: Boolean
+}
+
+input GameCollectionNoteCreateOneInput {
+  create: GameCollectionNoteCreateInput
+}
+
+"""An edge in a connection."""
+type GameCollectionNoteEdge {
+  """The item at the end of the edge."""
+  node: GameCollectionNote!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum GameCollectionNoteOrderByInput {
+  text_ASC
+  text_DESC
+  isPrivate_ASC
+  isPrivate_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type GameCollectionNotePreviousValues {
+  text: String!
+  isPrivate: Boolean
+}
+
+type GameCollectionNoteSubscriptionPayload {
+  mutation: MutationType!
+  node: GameCollectionNote
+  updatedFields: [String!]
+  previousValues: GameCollectionNotePreviousValues
+}
+
+input GameCollectionNoteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameCollectionNoteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameCollectionNoteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameCollectionNoteSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GameCollectionNoteWhereInput
+}
+
+input GameCollectionNoteUpdateDataInput {
+  text: String
+  isPrivate: Boolean
+}
+
+input GameCollectionNoteUpdateInput {
+  text: String
+  isPrivate: Boolean
+}
+
+input GameCollectionNoteUpdateOneInput {
+  create: GameCollectionNoteCreateInput
+  disconnect: Boolean
+  delete: Boolean
+  update: GameCollectionNoteUpdateDataInput
+  upsert: GameCollectionNoteUpsertNestedInput
+}
+
+input GameCollectionNoteUpsertNestedInput {
+  update: GameCollectionNoteUpdateDataInput!
+  create: GameCollectionNoteCreateInput!
+}
+
+input GameCollectionNoteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameCollectionNoteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameCollectionNoteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameCollectionNoteWhereInput!]
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  isPrivate: Boolean
+
+  """All values that are not equal to given value."""
+  isPrivate_not: Boolean
+}
+
+enum GameCollectionOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type GameCollectionPreviousValues {
+  id: ID!
+}
+
+type GameCollectionSubscriptionPayload {
+  mutation: MutationType!
+  node: GameCollection
+  updatedFields: [String!]
+  previousValues: GameCollectionPreviousValues
+}
+
+input GameCollectionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameCollectionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameCollectionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameCollectionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GameCollectionWhereInput
+}
+
+input GameCollectionUpdateDataInput {
+  owner: UserUpdateOneInput
+  items: GameCollectionDetailsUpdateManyInput
+}
+
+input GameCollectionUpdateInput {
+  owner: UserUpdateOneInput
+  items: GameCollectionDetailsUpdateManyInput
+}
+
+input GameCollectionUpdateOneInput {
+  create: GameCollectionCreateInput
+  connect: GameCollectionWhereUniqueInput
+  delete: Boolean
+  update: GameCollectionUpdateDataInput
+  upsert: GameCollectionUpsertNestedInput
+}
+
+input GameCollectionUpsertNestedInput {
+  update: GameCollectionUpdateDataInput!
+  create: GameCollectionCreateInput!
+}
+
+input GameCollectionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameCollectionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameCollectionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameCollectionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  owner: UserWhereInput
+  items_every: GameCollectionDetailsWhereInput
+  items_some: GameCollectionDetailsWhereInput
+  items_none: GameCollectionDetailsWhereInput
+}
+
+input GameCollectionWhereUniqueInput {
+  id: ID
+}
+
+"""A connection to a list of items."""
+type GameConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [GameEdge]!
+  aggregate: AggregateGame!
+}
+
+input GameCreateInput {
+  igdb_id: Int!
+  title: String!
+  releaseDate: DateTime
+  description: String
+  developer: CompanyCreateManyWithoutDevelopedInput
+  publisher: CompanyCreateManyWithoutPublishedInput
+  platforms: PlatformCreateManyWithoutGamesInput
+  cover: CoverCreateOneInput
+  gameModes: GameModeCreateManyInput
+  multiplayerModes: MultiplayerModeCreateManyInput
+}
+
+input GameCreateManyWithoutDeveloperInput {
+  create: [GameCreateWithoutDeveloperInput!]
+  connect: [GameWhereUniqueInput!]
+}
+
+input GameCreateManyWithoutPlatformsInput {
+  create: [GameCreateWithoutPlatformsInput!]
+  connect: [GameWhereUniqueInput!]
+}
+
+input GameCreateManyWithoutPublisherInput {
+  create: [GameCreateWithoutPublisherInput!]
+  connect: [GameWhereUniqueInput!]
+}
+
+input GameCreateOneInput {
+  create: GameCreateInput
+  connect: GameWhereUniqueInput
+}
+
+input GameCreateWithoutDeveloperInput {
+  igdb_id: Int!
+  title: String!
+  releaseDate: DateTime
+  description: String
+  publisher: CompanyCreateManyWithoutPublishedInput
+  platforms: PlatformCreateManyWithoutGamesInput
+  cover: CoverCreateOneInput
+  gameModes: GameModeCreateManyInput
+  multiplayerModes: MultiplayerModeCreateManyInput
+}
+
+input GameCreateWithoutPlatformsInput {
+  igdb_id: Int!
+  title: String!
+  releaseDate: DateTime
+  description: String
+  developer: CompanyCreateManyWithoutDevelopedInput
+  publisher: CompanyCreateManyWithoutPublishedInput
+  cover: CoverCreateOneInput
+  gameModes: GameModeCreateManyInput
+  multiplayerModes: MultiplayerModeCreateManyInput
+}
+
+input GameCreateWithoutPublisherInput {
+  igdb_id: Int!
+  title: String!
+  releaseDate: DateTime
+  description: String
+  developer: CompanyCreateManyWithoutDevelopedInput
+  platforms: PlatformCreateManyWithoutGamesInput
+  cover: CoverCreateOneInput
+  gameModes: GameModeCreateManyInput
+  multiplayerModes: MultiplayerModeCreateManyInput
+}
+
+"""An edge in a connection."""
+type GameEdge {
+  """The item at the end of the edge."""
+  node: Game!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type GameMode implements Node {
+  id: ID!
+  igdb_id: Int!
+  name: String!
+}
+
+"""A connection to a list of items."""
+type GameModeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [GameModeEdge]!
+  aggregate: AggregateGameMode!
+}
+
+input GameModeCreateInput {
+  igdb_id: Int!
+  name: String!
+}
+
+input GameModeCreateManyInput {
+  create: [GameModeCreateInput!]
+  connect: [GameModeWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type GameModeEdge {
+  """The item at the end of the edge."""
+  node: GameMode!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum GameModeOrderByInput {
+  id_ASC
+  id_DESC
+  igdb_id_ASC
+  igdb_id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type GameModePreviousValues {
+  id: ID!
+  igdb_id: Int!
+  name: String!
+}
+
+type GameModeSubscriptionPayload {
+  mutation: MutationType!
+  node: GameMode
+  updatedFields: [String!]
+  previousValues: GameModePreviousValues
+}
+
+input GameModeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameModeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameModeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameModeSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GameModeWhereInput
+}
+
+input GameModeUpdateDataInput {
+  igdb_id: Int
+  name: String
+}
+
+input GameModeUpdateInput {
+  igdb_id: Int
+  name: String
+}
+
+input GameModeUpdateManyInput {
+  create: [GameModeCreateInput!]
+  connect: [GameModeWhereUniqueInput!]
+  disconnect: [GameModeWhereUniqueInput!]
+  delete: [GameModeWhereUniqueInput!]
+  update: [GameModeUpdateWithWhereUniqueNestedInput!]
+  upsert: [GameModeUpsertWithWhereUniqueNestedInput!]
+}
+
+input GameModeUpdateWithWhereUniqueNestedInput {
+  where: GameModeWhereUniqueInput!
+  data: GameModeUpdateDataInput!
+}
+
+input GameModeUpsertWithWhereUniqueNestedInput {
+  where: GameModeWhereUniqueInput!
+  update: GameModeUpdateDataInput!
+  create: GameModeCreateInput!
+}
+
+input GameModeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameModeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameModeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameModeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  igdb_id: Int
+
+  """All values that are not equal to given value."""
+  igdb_id_not: Int
+
+  """All values that are contained in given list."""
+  igdb_id_in: [Int!]
+
+  """All values that are not contained in given list."""
+  igdb_id_not_in: [Int!]
+
+  """All values less than the given value."""
+  igdb_id_lt: Int
+
+  """All values less than or equal the given value."""
+  igdb_id_lte: Int
+
+  """All values greater than the given value."""
+  igdb_id_gt: Int
+
+  """All values greater than or equal the given value."""
+  igdb_id_gte: Int
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
+input GameModeWhereUniqueInput {
+  id: ID
+}
+
+enum GameOrderByInput {
+  id_ASC
+  id_DESC
+  igdb_id_ASC
+  igdb_id_DESC
+  title_ASC
+  title_DESC
+  releaseDate_ASC
+  releaseDate_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type GamePreviousValues {
+  id: ID!
+  igdb_id: Int!
+  title: String!
+  releaseDate: DateTime
+  description: String
+}
+
+type GameSubscriptionPayload {
+  mutation: MutationType!
+  node: Game
+  updatedFields: [String!]
+  previousValues: GamePreviousValues
+}
+
+input GameSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GameWhereInput
+}
+
+input GameUpdateDataInput {
+  igdb_id: Int
+  title: String
+  releaseDate: DateTime
+  description: String
+  developer: CompanyUpdateManyWithoutDevelopedInput
+  publisher: CompanyUpdateManyWithoutPublishedInput
+  platforms: PlatformUpdateManyWithoutGamesInput
+  cover: CoverUpdateOneInput
+  gameModes: GameModeUpdateManyInput
+  multiplayerModes: MultiplayerModeUpdateManyInput
+}
+
+input GameUpdateInput {
+  igdb_id: Int
+  title: String
+  releaseDate: DateTime
+  description: String
+  developer: CompanyUpdateManyWithoutDevelopedInput
+  publisher: CompanyUpdateManyWithoutPublishedInput
+  platforms: PlatformUpdateManyWithoutGamesInput
+  cover: CoverUpdateOneInput
+  gameModes: GameModeUpdateManyInput
+  multiplayerModes: MultiplayerModeUpdateManyInput
+}
+
+input GameUpdateManyWithoutDeveloperInput {
+  create: [GameCreateWithoutDeveloperInput!]
+  connect: [GameWhereUniqueInput!]
+  disconnect: [GameWhereUniqueInput!]
+  delete: [GameWhereUniqueInput!]
+  update: [GameUpdateWithWhereUniqueWithoutDeveloperInput!]
+  upsert: [GameUpsertWithWhereUniqueWithoutDeveloperInput!]
+}
+
+input GameUpdateManyWithoutPlatformsInput {
+  create: [GameCreateWithoutPlatformsInput!]
+  connect: [GameWhereUniqueInput!]
+  disconnect: [GameWhereUniqueInput!]
+  delete: [GameWhereUniqueInput!]
+  update: [GameUpdateWithWhereUniqueWithoutPlatformsInput!]
+  upsert: [GameUpsertWithWhereUniqueWithoutPlatformsInput!]
+}
+
+input GameUpdateManyWithoutPublisherInput {
+  create: [GameCreateWithoutPublisherInput!]
+  connect: [GameWhereUniqueInput!]
+  disconnect: [GameWhereUniqueInput!]
+  delete: [GameWhereUniqueInput!]
+  update: [GameUpdateWithWhereUniqueWithoutPublisherInput!]
+  upsert: [GameUpsertWithWhereUniqueWithoutPublisherInput!]
+}
+
+input GameUpdateOneInput {
+  create: GameCreateInput
+  connect: GameWhereUniqueInput
+  delete: Boolean
+  update: GameUpdateDataInput
+  upsert: GameUpsertNestedInput
+}
+
+input GameUpdateWithoutDeveloperDataInput {
+  igdb_id: Int
+  title: String
+  releaseDate: DateTime
+  description: String
+  publisher: CompanyUpdateManyWithoutPublishedInput
+  platforms: PlatformUpdateManyWithoutGamesInput
+  cover: CoverUpdateOneInput
+  gameModes: GameModeUpdateManyInput
+  multiplayerModes: MultiplayerModeUpdateManyInput
+}
+
+input GameUpdateWithoutPlatformsDataInput {
+  igdb_id: Int
+  title: String
+  releaseDate: DateTime
+  description: String
+  developer: CompanyUpdateManyWithoutDevelopedInput
+  publisher: CompanyUpdateManyWithoutPublishedInput
+  cover: CoverUpdateOneInput
+  gameModes: GameModeUpdateManyInput
+  multiplayerModes: MultiplayerModeUpdateManyInput
+}
+
+input GameUpdateWithoutPublisherDataInput {
+  igdb_id: Int
+  title: String
+  releaseDate: DateTime
+  description: String
+  developer: CompanyUpdateManyWithoutDevelopedInput
+  platforms: PlatformUpdateManyWithoutGamesInput
+  cover: CoverUpdateOneInput
+  gameModes: GameModeUpdateManyInput
+  multiplayerModes: MultiplayerModeUpdateManyInput
+}
+
+input GameUpdateWithWhereUniqueWithoutDeveloperInput {
+  where: GameWhereUniqueInput!
+  data: GameUpdateWithoutDeveloperDataInput!
+}
+
+input GameUpdateWithWhereUniqueWithoutPlatformsInput {
+  where: GameWhereUniqueInput!
+  data: GameUpdateWithoutPlatformsDataInput!
+}
+
+input GameUpdateWithWhereUniqueWithoutPublisherInput {
+  where: GameWhereUniqueInput!
+  data: GameUpdateWithoutPublisherDataInput!
+}
+
+input GameUpsertNestedInput {
+  update: GameUpdateDataInput!
+  create: GameCreateInput!
+}
+
+input GameUpsertWithWhereUniqueWithoutDeveloperInput {
+  where: GameWhereUniqueInput!
+  update: GameUpdateWithoutDeveloperDataInput!
+  create: GameCreateWithoutDeveloperInput!
+}
+
+input GameUpsertWithWhereUniqueWithoutPlatformsInput {
+  where: GameWhereUniqueInput!
+  update: GameUpdateWithoutPlatformsDataInput!
+  create: GameCreateWithoutPlatformsInput!
+}
+
+input GameUpsertWithWhereUniqueWithoutPublisherInput {
+  where: GameWhereUniqueInput!
+  update: GameUpdateWithoutPublisherDataInput!
+  create: GameCreateWithoutPublisherInput!
+}
+
+input GameWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GameWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GameWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GameWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  igdb_id: Int
+
+  """All values that are not equal to given value."""
+  igdb_id_not: Int
+
+  """All values that are contained in given list."""
+  igdb_id_in: [Int!]
+
+  """All values that are not contained in given list."""
+  igdb_id_not_in: [Int!]
+
+  """All values less than the given value."""
+  igdb_id_lt: Int
+
+  """All values less than or equal the given value."""
+  igdb_id_lte: Int
+
+  """All values greater than the given value."""
+  igdb_id_gt: Int
+
+  """All values greater than or equal the given value."""
+  igdb_id_gte: Int
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  releaseDate: DateTime
+
+  """All values that are not equal to given value."""
+  releaseDate_not: DateTime
+
+  """All values that are contained in given list."""
+  releaseDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  releaseDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  releaseDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  releaseDate_lte: DateTime
+
+  """All values greater than the given value."""
+  releaseDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  releaseDate_gte: DateTime
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  developer_every: CompanyWhereInput
+  developer_some: CompanyWhereInput
+  developer_none: CompanyWhereInput
+  publisher_every: CompanyWhereInput
+  publisher_some: CompanyWhereInput
+  publisher_none: CompanyWhereInput
+  platforms_every: PlatformWhereInput
+  platforms_some: PlatformWhereInput
+  platforms_none: PlatformWhereInput
+  cover: CoverWhereInput
+  gameModes_every: GameModeWhereInput
+  gameModes_some: GameModeWhereInput
+  gameModes_none: GameModeWhereInput
+  multiplayerModes_every: MultiplayerModeWhereInput
+  multiplayerModes_some: MultiplayerModeWhereInput
+  multiplayerModes_none: MultiplayerModeWhereInput
+}
+
+input GameWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type MultiplayerMode implements Node {
+  id: ID!
+  platform(where: PlatformWhereInput): Platform
+  offlinecoop: Boolean
+  onlinecoop: Boolean
+  lancoop: Boolean
+  campaigncoop: Boolean
+  splitscreenonline: Boolean
+  splitscreen: Boolean
+  dropin: Boolean
+  offlinecoopmax: Int
+  onlinecoopmax: Int
+  onlinemax: Int
+  offlinemax: Int
+}
+
+"""A connection to a list of items."""
+type MultiplayerModeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MultiplayerModeEdge]!
+  aggregate: AggregateMultiplayerMode!
+}
+
+input MultiplayerModeCreateInput {
+  offlinecoop: Boolean
+  onlinecoop: Boolean
+  lancoop: Boolean
+  campaigncoop: Boolean
+  splitscreenonline: Boolean
+  splitscreen: Boolean
+  dropin: Boolean
+  offlinecoopmax: Int
+  onlinecoopmax: Int
+  onlinemax: Int
+  offlinemax: Int
+  platform: PlatformCreateOneInput
+}
+
+input MultiplayerModeCreateManyInput {
+  create: [MultiplayerModeCreateInput!]
+  connect: [MultiplayerModeWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type MultiplayerModeEdge {
+  """The item at the end of the edge."""
+  node: MultiplayerMode!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MultiplayerModeOrderByInput {
+  id_ASC
+  id_DESC
+  offlinecoop_ASC
+  offlinecoop_DESC
+  onlinecoop_ASC
+  onlinecoop_DESC
+  lancoop_ASC
+  lancoop_DESC
+  campaigncoop_ASC
+  campaigncoop_DESC
+  splitscreenonline_ASC
+  splitscreenonline_DESC
+  splitscreen_ASC
+  splitscreen_DESC
+  dropin_ASC
+  dropin_DESC
+  offlinecoopmax_ASC
+  offlinecoopmax_DESC
+  onlinecoopmax_ASC
+  onlinecoopmax_DESC
+  onlinemax_ASC
+  onlinemax_DESC
+  offlinemax_ASC
+  offlinemax_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type MultiplayerModePreviousValues {
+  id: ID!
+  offlinecoop: Boolean
+  onlinecoop: Boolean
+  lancoop: Boolean
+  campaigncoop: Boolean
+  splitscreenonline: Boolean
+  splitscreen: Boolean
+  dropin: Boolean
+  offlinecoopmax: Int
+  onlinecoopmax: Int
+  onlinemax: Int
+  offlinemax: Int
+}
+
+type MultiplayerModeSubscriptionPayload {
+  mutation: MutationType!
+  node: MultiplayerMode
+  updatedFields: [String!]
+  previousValues: MultiplayerModePreviousValues
+}
+
+input MultiplayerModeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MultiplayerModeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MultiplayerModeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MultiplayerModeSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MultiplayerModeWhereInput
+}
+
+input MultiplayerModeUpdateDataInput {
+  offlinecoop: Boolean
+  onlinecoop: Boolean
+  lancoop: Boolean
+  campaigncoop: Boolean
+  splitscreenonline: Boolean
+  splitscreen: Boolean
+  dropin: Boolean
+  offlinecoopmax: Int
+  onlinecoopmax: Int
+  onlinemax: Int
+  offlinemax: Int
+  platform: PlatformUpdateOneInput
+}
+
+input MultiplayerModeUpdateInput {
+  offlinecoop: Boolean
+  onlinecoop: Boolean
+  lancoop: Boolean
+  campaigncoop: Boolean
+  splitscreenonline: Boolean
+  splitscreen: Boolean
+  dropin: Boolean
+  offlinecoopmax: Int
+  onlinecoopmax: Int
+  onlinemax: Int
+  offlinemax: Int
+  platform: PlatformUpdateOneInput
+}
+
+input MultiplayerModeUpdateManyInput {
+  create: [MultiplayerModeCreateInput!]
+  connect: [MultiplayerModeWhereUniqueInput!]
+  disconnect: [MultiplayerModeWhereUniqueInput!]
+  delete: [MultiplayerModeWhereUniqueInput!]
+  update: [MultiplayerModeUpdateWithWhereUniqueNestedInput!]
+  upsert: [MultiplayerModeUpsertWithWhereUniqueNestedInput!]
+}
+
+input MultiplayerModeUpdateWithWhereUniqueNestedInput {
+  where: MultiplayerModeWhereUniqueInput!
+  data: MultiplayerModeUpdateDataInput!
+}
+
+input MultiplayerModeUpsertWithWhereUniqueNestedInput {
+  where: MultiplayerModeWhereUniqueInput!
+  update: MultiplayerModeUpdateDataInput!
+  create: MultiplayerModeCreateInput!
+}
+
+input MultiplayerModeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MultiplayerModeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MultiplayerModeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MultiplayerModeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  offlinecoop: Boolean
+
+  """All values that are not equal to given value."""
+  offlinecoop_not: Boolean
+  onlinecoop: Boolean
+
+  """All values that are not equal to given value."""
+  onlinecoop_not: Boolean
+  lancoop: Boolean
+
+  """All values that are not equal to given value."""
+  lancoop_not: Boolean
+  campaigncoop: Boolean
+
+  """All values that are not equal to given value."""
+  campaigncoop_not: Boolean
+  splitscreenonline: Boolean
+
+  """All values that are not equal to given value."""
+  splitscreenonline_not: Boolean
+  splitscreen: Boolean
+
+  """All values that are not equal to given value."""
+  splitscreen_not: Boolean
+  dropin: Boolean
+
+  """All values that are not equal to given value."""
+  dropin_not: Boolean
+  offlinecoopmax: Int
+
+  """All values that are not equal to given value."""
+  offlinecoopmax_not: Int
+
+  """All values that are contained in given list."""
+  offlinecoopmax_in: [Int!]
+
+  """All values that are not contained in given list."""
+  offlinecoopmax_not_in: [Int!]
+
+  """All values less than the given value."""
+  offlinecoopmax_lt: Int
+
+  """All values less than or equal the given value."""
+  offlinecoopmax_lte: Int
+
+  """All values greater than the given value."""
+  offlinecoopmax_gt: Int
+
+  """All values greater than or equal the given value."""
+  offlinecoopmax_gte: Int
+  onlinecoopmax: Int
+
+  """All values that are not equal to given value."""
+  onlinecoopmax_not: Int
+
+  """All values that are contained in given list."""
+  onlinecoopmax_in: [Int!]
+
+  """All values that are not contained in given list."""
+  onlinecoopmax_not_in: [Int!]
+
+  """All values less than the given value."""
+  onlinecoopmax_lt: Int
+
+  """All values less than or equal the given value."""
+  onlinecoopmax_lte: Int
+
+  """All values greater than the given value."""
+  onlinecoopmax_gt: Int
+
+  """All values greater than or equal the given value."""
+  onlinecoopmax_gte: Int
+  onlinemax: Int
+
+  """All values that are not equal to given value."""
+  onlinemax_not: Int
+
+  """All values that are contained in given list."""
+  onlinemax_in: [Int!]
+
+  """All values that are not contained in given list."""
+  onlinemax_not_in: [Int!]
+
+  """All values less than the given value."""
+  onlinemax_lt: Int
+
+  """All values less than or equal the given value."""
+  onlinemax_lte: Int
+
+  """All values greater than the given value."""
+  onlinemax_gt: Int
+
+  """All values greater than or equal the given value."""
+  onlinemax_gte: Int
+  offlinemax: Int
+
+  """All values that are not equal to given value."""
+  offlinemax_not: Int
+
+  """All values that are contained in given list."""
+  offlinemax_in: [Int!]
+
+  """All values that are not contained in given list."""
+  offlinemax_not_in: [Int!]
+
+  """All values less than the given value."""
+  offlinemax_lt: Int
+
+  """All values less than or equal the given value."""
+  offlinemax_lte: Int
+
+  """All values greater than the given value."""
+  offlinemax_gt: Int
+
+  """All values greater than or equal the given value."""
+  offlinemax_gte: Int
+  platform: PlatformWhereInput
+}
+
+input MultiplayerModeWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createCompany(data: CompanyCreateInput!): Company!
+  createGameCollectionItem(data: GameCollectionItemCreateInput!): GameCollectionItem!
+  createGameCollectionDetails(data: GameCollectionDetailsCreateInput!): GameCollectionDetails!
+  createCover(data: CoverCreateInput!): Cover!
+  createGameCollectionNote(data: GameCollectionNoteCreateInput!): GameCollectionNote!
+  createGameCollection(data: GameCollectionCreateInput!): GameCollection!
+  createGameMode(data: GameModeCreateInput!): GameMode!
+  createUser(data: UserCreateInput!): User!
+  createMultiplayerMode(data: MultiplayerModeCreateInput!): MultiplayerMode!
+  createGame(data: GameCreateInput!): Game!
+  createPlatformLogo(data: PlatformLogoCreateInput!): PlatformLogo!
+  createPlatform(data: PlatformCreateInput!): Platform!
+  updateCompany(data: CompanyUpdateInput!, where: CompanyWhereUniqueInput!): Company
+  updateCover(data: CoverUpdateInput!, where: CoverWhereUniqueInput!): Cover
+  updateGameCollection(data: GameCollectionUpdateInput!, where: GameCollectionWhereUniqueInput!): GameCollection
+  updateGameMode(data: GameModeUpdateInput!, where: GameModeWhereUniqueInput!): GameMode
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateMultiplayerMode(data: MultiplayerModeUpdateInput!, where: MultiplayerModeWhereUniqueInput!): MultiplayerMode
+  updateGame(data: GameUpdateInput!, where: GameWhereUniqueInput!): Game
+  updatePlatformLogo(data: PlatformLogoUpdateInput!, where: PlatformLogoWhereUniqueInput!): PlatformLogo
+  updatePlatform(data: PlatformUpdateInput!, where: PlatformWhereUniqueInput!): Platform
+  deleteCompany(where: CompanyWhereUniqueInput!): Company
+  deleteCover(where: CoverWhereUniqueInput!): Cover
+  deleteGameCollection(where: GameCollectionWhereUniqueInput!): GameCollection
+  deleteGameMode(where: GameModeWhereUniqueInput!): GameMode
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteMultiplayerMode(where: MultiplayerModeWhereUniqueInput!): MultiplayerMode
+  deleteGame(where: GameWhereUniqueInput!): Game
+  deletePlatformLogo(where: PlatformLogoWhereUniqueInput!): PlatformLogo
+  deletePlatform(where: PlatformWhereUniqueInput!): Platform
+  upsertCompany(where: CompanyWhereUniqueInput!, create: CompanyCreateInput!, update: CompanyUpdateInput!): Company!
+  upsertCover(where: CoverWhereUniqueInput!, create: CoverCreateInput!, update: CoverUpdateInput!): Cover!
+  upsertGameCollection(where: GameCollectionWhereUniqueInput!, create: GameCollectionCreateInput!, update: GameCollectionUpdateInput!): GameCollection!
+  upsertGameMode(where: GameModeWhereUniqueInput!, create: GameModeCreateInput!, update: GameModeUpdateInput!): GameMode!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertMultiplayerMode(where: MultiplayerModeWhereUniqueInput!, create: MultiplayerModeCreateInput!, update: MultiplayerModeUpdateInput!): MultiplayerMode!
+  upsertGame(where: GameWhereUniqueInput!, create: GameCreateInput!, update: GameUpdateInput!): Game!
+  upsertPlatformLogo(where: PlatformLogoWhereUniqueInput!, create: PlatformLogoCreateInput!, update: PlatformLogoUpdateInput!): PlatformLogo!
+  upsertPlatform(where: PlatformWhereUniqueInput!, create: PlatformCreateInput!, update: PlatformUpdateInput!): Platform!
+  updateManyCompanies(data: CompanyUpdateInput!, where: CompanyWhereInput): BatchPayload!
+  updateManyGameCollectionItems(data: GameCollectionItemUpdateInput!, where: GameCollectionItemWhereInput): BatchPayload!
+  updateManyGameCollectionDetailses(data: GameCollectionDetailsUpdateInput!, where: GameCollectionDetailsWhereInput): BatchPayload!
+  updateManyCovers(data: CoverUpdateInput!, where: CoverWhereInput): BatchPayload!
+  updateManyGameCollectionNotes(data: GameCollectionNoteUpdateInput!, where: GameCollectionNoteWhereInput): BatchPayload!
+  updateManyGameCollections(data: GameCollectionUpdateInput!, where: GameCollectionWhereInput): BatchPayload!
+  updateManyGameModes(data: GameModeUpdateInput!, where: GameModeWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyMultiplayerModes(data: MultiplayerModeUpdateInput!, where: MultiplayerModeWhereInput): BatchPayload!
+  updateManyGames(data: GameUpdateInput!, where: GameWhereInput): BatchPayload!
+  updateManyPlatformLogoes(data: PlatformLogoUpdateInput!, where: PlatformLogoWhereInput): BatchPayload!
+  updateManyPlatforms(data: PlatformUpdateInput!, where: PlatformWhereInput): BatchPayload!
+  deleteManyCompanies(where: CompanyWhereInput): BatchPayload!
+  deleteManyGameCollectionItems(where: GameCollectionItemWhereInput): BatchPayload!
+  deleteManyGameCollectionDetailses(where: GameCollectionDetailsWhereInput): BatchPayload!
+  deleteManyCovers(where: CoverWhereInput): BatchPayload!
+  deleteManyGameCollectionNotes(where: GameCollectionNoteWhereInput): BatchPayload!
+  deleteManyGameCollections(where: GameCollectionWhereInput): BatchPayload!
+  deleteManyGameModes(where: GameModeWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyMultiplayerModes(where: MultiplayerModeWhereInput): BatchPayload!
+  deleteManyGames(where: GameWhereInput): BatchPayload!
+  deleteManyPlatformLogoes(where: PlatformLogoWhereInput): BatchPayload!
+  deleteManyPlatforms(where: PlatformWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Platform implements Node {
+  id: ID!
+  igdb_id: Int!
+  name: String!
+  logo(where: PlatformLogoWhereInput): PlatformLogo
+  igdbGameList: [String!]!
+  games(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game!]
+}
+
+"""A connection to a list of items."""
+type PlatformConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PlatformEdge]!
+  aggregate: AggregatePlatform!
+}
+
+input PlatformCreateigdbGameListInput {
+  set: [String!]
+}
+
+input PlatformCreateInput {
+  igdb_id: Int!
+  name: String!
+  igdbGameList: PlatformCreateigdbGameListInput
+  logo: PlatformLogoCreateOneInput
+  games: GameCreateManyWithoutPlatformsInput
+}
+
+input PlatformCreateManyWithoutGamesInput {
+  create: [PlatformCreateWithoutGamesInput!]
+  connect: [PlatformWhereUniqueInput!]
+}
+
+input PlatformCreateOneInput {
+  create: PlatformCreateInput
+  connect: PlatformWhereUniqueInput
+}
+
+input PlatformCreateWithoutGamesInput {
+  igdb_id: Int!
+  name: String!
+  igdbGameList: PlatformCreateigdbGameListInput
+  logo: PlatformLogoCreateOneInput
+}
+
+"""An edge in a connection."""
+type PlatformEdge {
+  """The item at the end of the edge."""
+  node: Platform!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type PlatformLogo implements Node {
+  id: ID!
+  url: String
+  cloudinary_id: String
+  width: Float
+  height: Float
+}
+
+"""A connection to a list of items."""
+type PlatformLogoConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PlatformLogoEdge]!
+  aggregate: AggregatePlatformLogo!
+}
+
+input PlatformLogoCreateInput {
+  url: String
+  cloudinary_id: String
+  width: Float
+  height: Float
+}
+
+input PlatformLogoCreateOneInput {
+  create: PlatformLogoCreateInput
+  connect: PlatformLogoWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type PlatformLogoEdge {
+  """The item at the end of the edge."""
+  node: PlatformLogo!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PlatformLogoOrderByInput {
+  id_ASC
+  id_DESC
+  url_ASC
+  url_DESC
+  cloudinary_id_ASC
+  cloudinary_id_DESC
+  width_ASC
+  width_DESC
+  height_ASC
+  height_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PlatformLogoPreviousValues {
+  id: ID!
+  url: String
+  cloudinary_id: String
+  width: Float
+  height: Float
+}
+
+type PlatformLogoSubscriptionPayload {
+  mutation: MutationType!
+  node: PlatformLogo
+  updatedFields: [String!]
+  previousValues: PlatformLogoPreviousValues
+}
+
+input PlatformLogoSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlatformLogoSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlatformLogoSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlatformLogoSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PlatformLogoWhereInput
+}
+
+input PlatformLogoUpdateDataInput {
+  url: String
+  cloudinary_id: String
+  width: Float
+  height: Float
+}
+
+input PlatformLogoUpdateInput {
+  url: String
+  cloudinary_id: String
+  width: Float
+  height: Float
+}
+
+input PlatformLogoUpdateOneInput {
+  create: PlatformLogoCreateInput
+  connect: PlatformLogoWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PlatformLogoUpdateDataInput
+  upsert: PlatformLogoUpsertNestedInput
+}
+
+input PlatformLogoUpsertNestedInput {
+  update: PlatformLogoUpdateDataInput!
+  create: PlatformLogoCreateInput!
+}
+
+input PlatformLogoWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlatformLogoWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlatformLogoWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlatformLogoWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  cloudinary_id: String
+
+  """All values that are not equal to given value."""
+  cloudinary_id_not: String
+
+  """All values that are contained in given list."""
+  cloudinary_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  cloudinary_id_not_in: [String!]
+
+  """All values less than the given value."""
+  cloudinary_id_lt: String
+
+  """All values less than or equal the given value."""
+  cloudinary_id_lte: String
+
+  """All values greater than the given value."""
+  cloudinary_id_gt: String
+
+  """All values greater than or equal the given value."""
+  cloudinary_id_gte: String
+
+  """All values containing the given string."""
+  cloudinary_id_contains: String
+
+  """All values not containing the given string."""
+  cloudinary_id_not_contains: String
+
+  """All values starting with the given string."""
+  cloudinary_id_starts_with: String
+
+  """All values not starting with the given string."""
+  cloudinary_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  cloudinary_id_ends_with: String
+
+  """All values not ending with the given string."""
+  cloudinary_id_not_ends_with: String
+  width: Float
+
+  """All values that are not equal to given value."""
+  width_not: Float
+
+  """All values that are contained in given list."""
+  width_in: [Float!]
+
+  """All values that are not contained in given list."""
+  width_not_in: [Float!]
+
+  """All values less than the given value."""
+  width_lt: Float
+
+  """All values less than or equal the given value."""
+  width_lte: Float
+
+  """All values greater than the given value."""
+  width_gt: Float
+
+  """All values greater than or equal the given value."""
+  width_gte: Float
+  height: Float
+
+  """All values that are not equal to given value."""
+  height_not: Float
+
+  """All values that are contained in given list."""
+  height_in: [Float!]
+
+  """All values that are not contained in given list."""
+  height_not_in: [Float!]
+
+  """All values less than the given value."""
+  height_lt: Float
+
+  """All values less than or equal the given value."""
+  height_lte: Float
+
+  """All values greater than the given value."""
+  height_gt: Float
+
+  """All values greater than or equal the given value."""
+  height_gte: Float
+}
+
+input PlatformLogoWhereUniqueInput {
+  id: ID
+}
+
+enum PlatformOrderByInput {
+  id_ASC
+  id_DESC
+  igdb_id_ASC
+  igdb_id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PlatformPreviousValues {
+  id: ID!
+  igdb_id: Int!
+  name: String!
+  igdbGameList: [String!]!
+}
+
+type PlatformSubscriptionPayload {
+  mutation: MutationType!
+  node: Platform
+  updatedFields: [String!]
+  previousValues: PlatformPreviousValues
+}
+
+input PlatformSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlatformSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlatformSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlatformSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PlatformWhereInput
+}
+
+input PlatformUpdateDataInput {
+  igdb_id: Int
+  name: String
+  igdbGameList: PlatformUpdateigdbGameListInput
+  logo: PlatformLogoUpdateOneInput
+  games: GameUpdateManyWithoutPlatformsInput
+}
+
+input PlatformUpdateigdbGameListInput {
+  set: [String!]
+}
+
+input PlatformUpdateInput {
+  igdb_id: Int
+  name: String
+  igdbGameList: PlatformUpdateigdbGameListInput
+  logo: PlatformLogoUpdateOneInput
+  games: GameUpdateManyWithoutPlatformsInput
+}
+
+input PlatformUpdateManyWithoutGamesInput {
+  create: [PlatformCreateWithoutGamesInput!]
+  connect: [PlatformWhereUniqueInput!]
+  disconnect: [PlatformWhereUniqueInput!]
+  delete: [PlatformWhereUniqueInput!]
+  update: [PlatformUpdateWithWhereUniqueWithoutGamesInput!]
+  upsert: [PlatformUpsertWithWhereUniqueWithoutGamesInput!]
+}
+
+input PlatformUpdateOneInput {
+  create: PlatformCreateInput
+  connect: PlatformWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PlatformUpdateDataInput
+  upsert: PlatformUpsertNestedInput
+}
+
+input PlatformUpdateWithoutGamesDataInput {
+  igdb_id: Int
+  name: String
+  igdbGameList: PlatformUpdateigdbGameListInput
+  logo: PlatformLogoUpdateOneInput
+}
+
+input PlatformUpdateWithWhereUniqueWithoutGamesInput {
+  where: PlatformWhereUniqueInput!
+  data: PlatformUpdateWithoutGamesDataInput!
+}
+
+input PlatformUpsertNestedInput {
+  update: PlatformUpdateDataInput!
+  create: PlatformCreateInput!
+}
+
+input PlatformUpsertWithWhereUniqueWithoutGamesInput {
+  where: PlatformWhereUniqueInput!
+  update: PlatformUpdateWithoutGamesDataInput!
+  create: PlatformCreateWithoutGamesInput!
+}
+
+input PlatformWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlatformWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlatformWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlatformWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  igdb_id: Int
+
+  """All values that are not equal to given value."""
+  igdb_id_not: Int
+
+  """All values that are contained in given list."""
+  igdb_id_in: [Int!]
+
+  """All values that are not contained in given list."""
+  igdb_id_not_in: [Int!]
+
+  """All values less than the given value."""
+  igdb_id_lt: Int
+
+  """All values less than or equal the given value."""
+  igdb_id_lte: Int
+
+  """All values greater than the given value."""
+  igdb_id_gt: Int
+
+  """All values greater than or equal the given value."""
+  igdb_id_gte: Int
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  logo: PlatformLogoWhereInput
+  games_every: GameWhereInput
+  games_some: GameWhereInput
+  games_none: GameWhereInput
+}
+
+input PlatformWhereUniqueInput {
+  id: ID
+}
+
+type Query {
+  companies(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Company]!
+  gameCollectionItems(where: GameCollectionItemWhereInput, orderBy: GameCollectionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GameCollectionItem]!
+  gameCollectionDetailses(where: GameCollectionDetailsWhereInput, orderBy: GameCollectionDetailsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GameCollectionDetails]!
+  covers(where: CoverWhereInput, orderBy: CoverOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Cover]!
+  gameCollectionNotes(where: GameCollectionNoteWhereInput, orderBy: GameCollectionNoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GameCollectionNote]!
+  gameCollections(where: GameCollectionWhereInput, orderBy: GameCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GameCollection]!
+  gameModes(where: GameModeWhereInput, orderBy: GameModeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GameMode]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  multiplayerModes(where: MultiplayerModeWhereInput, orderBy: MultiplayerModeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MultiplayerMode]!
+  games(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Game]!
+  platformLogoes(where: PlatformLogoWhereInput, orderBy: PlatformLogoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PlatformLogo]!
+  platforms(where: PlatformWhereInput, orderBy: PlatformOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Platform]!
+  company(where: CompanyWhereUniqueInput!): Company
+  cover(where: CoverWhereUniqueInput!): Cover
+  gameCollection(where: GameCollectionWhereUniqueInput!): GameCollection
+  gameMode(where: GameModeWhereUniqueInput!): GameMode
+  user(where: UserWhereUniqueInput!): User
+  multiplayerMode(where: MultiplayerModeWhereUniqueInput!): MultiplayerMode
+  game(where: GameWhereUniqueInput!): Game
+  platformLogo(where: PlatformLogoWhereUniqueInput!): PlatformLogo
+  platform(where: PlatformWhereUniqueInput!): Platform
+  companiesConnection(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CompanyConnection!
+  gameCollectionItemsConnection(where: GameCollectionItemWhereInput, orderBy: GameCollectionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameCollectionItemConnection!
+  gameCollectionDetailsesConnection(where: GameCollectionDetailsWhereInput, orderBy: GameCollectionDetailsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameCollectionDetailsConnection!
+  coversConnection(where: CoverWhereInput, orderBy: CoverOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CoverConnection!
+  gameCollectionNotesConnection(where: GameCollectionNoteWhereInput, orderBy: GameCollectionNoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameCollectionNoteConnection!
+  gameCollectionsConnection(where: GameCollectionWhereInput, orderBy: GameCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameCollectionConnection!
+  gameModesConnection(where: GameModeWhereInput, orderBy: GameModeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameModeConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  multiplayerModesConnection(where: MultiplayerModeWhereInput, orderBy: MultiplayerModeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MultiplayerModeConnection!
+  gamesConnection(where: GameWhereInput, orderBy: GameOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GameConnection!
+  platformLogoesConnection(where: PlatformLogoWhereInput, orderBy: PlatformLogoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlatformLogoConnection!
+  platformsConnection(where: PlatformWhereInput, orderBy: PlatformOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlatformConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  company(where: CompanySubscriptionWhereInput): CompanySubscriptionPayload
+  gameCollectionItem(where: GameCollectionItemSubscriptionWhereInput): GameCollectionItemSubscriptionPayload
+  gameCollectionDetails(where: GameCollectionDetailsSubscriptionWhereInput): GameCollectionDetailsSubscriptionPayload
+  cover(where: CoverSubscriptionWhereInput): CoverSubscriptionPayload
+  gameCollectionNote(where: GameCollectionNoteSubscriptionWhereInput): GameCollectionNoteSubscriptionPayload
+  gameCollection(where: GameCollectionSubscriptionWhereInput): GameCollectionSubscriptionPayload
+  gameMode(where: GameModeSubscriptionWhereInput): GameModeSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  multiplayerMode(where: MultiplayerModeSubscriptionWhereInput): MultiplayerModeSubscriptionPayload
+  game(where: GameSubscriptionWhereInput): GameSubscriptionPayload
+  platformLogo(where: PlatformLogoSubscriptionWhereInput): PlatformLogoSubscriptionPayload
+  platform(where: PlatformSubscriptionWhereInput): PlatformSubscriptionPayload
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  email: String!
+  username: String!
+  password: String!
+  firstName: String
+  lastName: String
+  admin: Boolean
+  gameCollection(where: GameCollectionWhereInput): GameCollection!
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  name: String!
+  email: String!
+  username: String!
+  password: String!
+  firstName: String
+  lastName: String
+  admin: Boolean
+  gameCollection: GameCollectionCreateOneInput!
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  username_ASC
+  username_DESC
+  password_ASC
+  password_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  admin_ASC
+  admin_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+  email: String!
+  username: String!
+  password: String!
+  firstName: String
+  lastName: String
+  admin: Boolean
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateDataInput {
+  name: String
+  email: String
+  username: String
+  password: String
+  firstName: String
+  lastName: String
+  admin: Boolean
+  gameCollection: GameCollectionUpdateOneInput
+}
+
+input UserUpdateInput {
+  name: String
+  email: String
+  username: String
+  password: String
+  firstName: String
+  lastName: String
+  admin: Boolean
+  gameCollection: GameCollectionUpdateOneInput
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  username: String
+
+  """All values that are not equal to given value."""
+  username_not: String
+
+  """All values that are contained in given list."""
+  username_in: [String!]
+
+  """All values that are not contained in given list."""
+  username_not_in: [String!]
+
+  """All values less than the given value."""
+  username_lt: String
+
+  """All values less than or equal the given value."""
+  username_lte: String
+
+  """All values greater than the given value."""
+  username_gt: String
+
+  """All values greater than or equal the given value."""
+  username_gte: String
+
+  """All values containing the given string."""
+  username_contains: String
+
+  """All values not containing the given string."""
+  username_not_contains: String
+
+  """All values starting with the given string."""
+  username_starts_with: String
+
+  """All values not starting with the given string."""
+  username_not_starts_with: String
+
+  """All values ending with the given string."""
+  username_ends_with: String
+
+  """All values not ending with the given string."""
+  username_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  firstName: String
+
+  """All values that are not equal to given value."""
+  firstName_not: String
+
+  """All values that are contained in given list."""
+  firstName_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstName_not_in: [String!]
+
+  """All values less than the given value."""
+  firstName_lt: String
+
+  """All values less than or equal the given value."""
+  firstName_lte: String
+
+  """All values greater than the given value."""
+  firstName_gt: String
+
+  """All values greater than or equal the given value."""
+  firstName_gte: String
+
+  """All values containing the given string."""
+  firstName_contains: String
+
+  """All values not containing the given string."""
+  firstName_not_contains: String
+
+  """All values starting with the given string."""
+  firstName_starts_with: String
+
+  """All values not starting with the given string."""
+  firstName_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstName_ends_with: String
+
+  """All values not ending with the given string."""
+  firstName_not_ends_with: String
+  lastName: String
+
+  """All values that are not equal to given value."""
+  lastName_not: String
+
+  """All values that are contained in given list."""
+  lastName_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastName_not_in: [String!]
+
+  """All values less than the given value."""
+  lastName_lt: String
+
+  """All values less than or equal the given value."""
+  lastName_lte: String
+
+  """All values greater than the given value."""
+  lastName_gt: String
+
+  """All values greater than or equal the given value."""
+  lastName_gte: String
+
+  """All values containing the given string."""
+  lastName_contains: String
+
+  """All values not containing the given string."""
+  lastName_not_contains: String
+
+  """All values starting with the given string."""
+  lastName_starts_with: String
+
+  """All values not starting with the given string."""
+  lastName_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastName_ends_with: String
+
+  """All values not ending with the given string."""
+  lastName_not_ends_with: String
+  admin: Boolean
+
+  """All values that are not equal to given value."""
+  admin_not: Boolean
+  gameCollection: GameCollectionWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: ID
+}
