@@ -1,6 +1,7 @@
 import Hapi from 'hapi';
 import HapiPino from 'hapi-pino';
 import { graphqlHapi, graphiqlHapi } from 'apollo-server-hapi';
+import hapiPlayground from 'graphql-playground-middleware-hapi';
 import hapiAuthJwt from 'hapi-auth-jwt2';
 import mongoose from 'mongoose';
 import routes from './app/index';
@@ -65,23 +66,16 @@ const registerGraphQL = async server => {
   });
 
   await server.register({
-    plugin: graphiqlHapi,
+    plugin: hapiPlayground,
     options: {
-      path: '/graphiql',
       route: {
         cors: true,
         auth: {
           mode: 'optional'
         }
       },
-      graphiqlOptions: async request => {
-        return {
-          endpointURL: '/graphql',
-          passHeader: request.query.authorization
-            ? `'Authorization': 'Bearer ${request.query.authorization}'`
-            : null
-        };
-      }
+      path: '/playground',
+      endpoint: '/graphql'
     }
   });
 };
