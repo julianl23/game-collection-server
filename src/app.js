@@ -1,6 +1,6 @@
 import Hapi from 'hapi';
 import HapiPino from 'hapi-pino';
-import { graphqlHapi, graphiqlHapi } from 'apollo-server-hapi';
+import { graphqlHapi } from 'apollo-server-hapi';
 import hapiPlayground from 'graphql-playground-middleware-hapi';
 import hapiAuthJwt from 'hapi-auth-jwt2';
 import mongoose from 'mongoose';
