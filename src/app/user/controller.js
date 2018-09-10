@@ -59,6 +59,7 @@ export const put = {
     return h
       .response({
         user: {
+          _id: user._id,
           token: getToken(user.id),
           ...userData
         }

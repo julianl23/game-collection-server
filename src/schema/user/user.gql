@@ -1,0 +1,19 @@
+type User {
+  _id: String
+  email: String
+  username: String
+  firstName: String
+  lastName: String
+  createdAt: String
+  updatedAt: String
+  token: String
+  gameCollection: Collection
+}
+
+input NewUserInput {
+  email: String
+  username: String
+  firstName: String
+  lastName: String
+  password: String
+}

@@ -1,0 +1,6 @@
+type Query {
+  games(query: String): [Game]
+  game(_id: String): Game
+  user(_id: String): User
+  currentUser: User
+}

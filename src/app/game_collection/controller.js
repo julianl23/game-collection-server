@@ -20,6 +20,34 @@ export const addGame = {
       return Boom.unauthorized('Invalid credentials');
     }
 
+    const {
+      platform,
+      borrowed,
+      borrowedDate,
+      cost,
+      note,
+      details
+    } = request.payload;
+
+    let collectionItem = {
+      game: gameId,
+      platform: mongoose.Types.ObjectId(platform),
+      borrowed,
+      borrowedDate,
+      cost
+    };
+
+    if (note) {
+      collectionItem.note = note;
+    }
+
+    if (details) {
+      collectionItem.details = details;
+    }
+
+    user.gameCollection.items.push(collectionItem);
+    user.gameCollection.save();
+
     user.gameCollection.items.push({
       _id: mongoose.Types.ObjectId(gameId)
     });

@@ -1,12 +1,11 @@
 import Hapi from 'hapi';
 import HapiPino from 'hapi-pino';
-import { graphqlHapi } from 'apollo-server-hapi';
-import hapiPlayground from 'graphql-playground-middleware-hapi';
+const { ApolloServer } = require('apollo-server-hapi');
 import hapiAuthJwt from 'hapi-auth-jwt2';
 import mongoose from 'mongoose';
 import routes from './app/index';
 import setupMongoose from './config/mongoose';
-import schema from './types/schema';
+import { typeDefs, resolvers } from './schema';
 import User from './app/user/model';
 
 const HOST = process.env.SERVER_HOST;
@@ -43,41 +42,28 @@ const registerPino = async (server, options = {}) => {
 };
 
 const registerGraphQL = async server => {
-  await server.register({
-    plugin: graphqlHapi,
-    options: {
-      path: '/graphql',
-      graphqlOptions: async request => {
-        return {
-          schema: schema,
-          context: { user: request.auth.credentials, request }
-        };
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: async ({ request }) => {
+      return { user: request.auth.credentials, request };
+    }
+  });
+
+  await apolloServer.applyMiddleware({
+    app: server,
+    route: {
+      cors: {
+        credentials: true,
+        origin: ['*']
       },
-      route: {
-        cors: {
-          credentials: true,
-          origin: ['*']
-        },
-        auth: {
-          mode: 'optional'
-        }
+      auth: {
+        mode: 'optional'
       }
     }
   });
 
-  await server.register({
-    plugin: hapiPlayground,
-    options: {
-      route: {
-        cors: true,
-        auth: {
-          mode: 'optional'
-        }
-      },
-      path: '/playground',
-      endpoint: '/graphql'
-    }
-  });
+  await apolloServer.installSubscriptionHandlers(server.listener);
 };
 
 const registerJWT = async server => {
