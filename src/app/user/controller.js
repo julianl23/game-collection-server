@@ -50,20 +50,23 @@ export const put = {
     // Check if the user already exists
     const existingUser = await User.find({ email });
     if (existingUser.length) {
-      return Boom.badRequest('User already exists');
+      return Boom.conflict('User already exists');
     }
 
     const hashedPassword = await hashPassword(password);
     const user = await User.create({ ...userData, password: hashedPassword });
+    const token = getToken(user._id);
 
     return h
       .response({
         user: {
           _id: user._id,
-          token: getToken(user.id),
+          token,
           ...userData
         }
       })
+      .state('token', token)
+      .header('Authorization', token)
       .code(201);
   }
 };
@@ -76,10 +79,10 @@ export const login = {
       return Boom.unauthorized('Invalid credentials');
     }
 
-    const token = getToken(user.id);
+    const token = getToken(user._id);
 
     const responseUser = {
-      id: user.id,
+      _id: user._id,
       email: user.email,
       username: user.username,
       firstName: user.firstName,

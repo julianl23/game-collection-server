@@ -19,6 +19,10 @@ const routes = [
       log: {
         collect: true
       },
+      cors: {
+        origin: ['*'],
+        credentials: true
+      },
       auth: false
     },
     ...put

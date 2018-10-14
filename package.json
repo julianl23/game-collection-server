@@ -42,6 +42,8 @@
     "start_just_babel_node": "babel-node server.js",
     "importgames": "babel-node --inspect ./src/scripts/importGames.js",
     "importgamemodes": "babel-node --inspect ./src/scripts/importGameModes.js",
+    "updateplatformlogos":
+      "babel-node --inspect ./src/scripts/updatePlatformLogos.js",
     "indexgames": "babel-node --inspect ./src/scripts/indexGames.js",
     "precommit": "lint-staged",
     "prepush": "yarn test && yarn lint",

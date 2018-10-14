@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Platform from '../app/platform/model';
+import '../env';
+import setupMongoose from '../config/mongoose';
 
 const getPage = async nextPage => {
   const page = await axios.get(nextPage, {
@@ -18,7 +20,7 @@ const importPlatforms = async () => {
   const pageSize = 50;
 
   const firstPage = await getPage(
-    `https://api-endpoint.igdb.com/platforms/?fields=id,name,summary,games&limit=${pageSize}&scroll=1`
+    `https://api-endpoint.igdb.com/platforms/?fields=id,name,summary,games,logo&limit=${pageSize}&scroll=1`
   );
 
   const totalResults = firstPage.headers['x-count'];
@@ -49,4 +51,5 @@ const importPlatforms = async () => {
   };
 };
 
+setupMongoose();
 importPlatforms();

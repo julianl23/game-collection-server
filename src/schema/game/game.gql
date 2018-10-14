@@ -1,9 +1,9 @@
 type Game {
   _id: String
   title: String
-  developer: [String]
-  publisher: [String]
-  platforms: [String]
+  developer: [Company]
+  publisher: [Company]
+  platforms: [Platform]
   releaseDate: String
   description: String
   createdAt: String
@@ -44,7 +44,7 @@ type Cover {
 }
 
 type MultiplayerMode {
-  platform: String
+  platform: Platform
   offlinecoop: Boolean
   onlinecoop: Boolean
   lancoop: Boolean

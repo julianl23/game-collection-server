@@ -1,0 +1,8 @@
+type Company {
+  _id: String
+  name: String
+  igdbId: Int
+  description: String
+  published: [Game]
+  developed: [Game]
+}

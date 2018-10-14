@@ -2,6 +2,10 @@ import elasticsearch from 'elasticsearch';
 import '../env';
 import setupMongoose, { disconnectMongoose } from '../config/mongoose';
 import Game from '../app/game/model';
+// Need to import these to ensure they're initialized by mongoose
+import GameMode from '../app/game_mode/model'; // eslint-disable-line no-unused-vars
+import Company from '../app/company/model'; // eslint-disable-line no-unused-vars
+import Platform from '../app/platform/model'; // eslint-disable-line no-unused-vars
 
 const client = new elasticsearch.Client({
   host: 'localhost:9200',
@@ -50,6 +54,11 @@ const indexGames = async () => {
     currentPage = i;
     const games = await Game.find({})
       .skip(currentPage * pageSize)
+      .populate('developer')
+      .populate('publisher')
+      .populate('platforms')
+      .populate('gameModes')
+      .populate('multiplayerModes')
       .limit(pageSize);
 
     await buildIndexes(games);
@@ -59,9 +68,14 @@ const indexGames = async () => {
 };
 
 const runScript = async () => {
-  await setupMongoose();
-  await indexGames();
-  await disconnectMongoose();
+  try {
+    await setupMongoose();
+    await indexGames();
+
+    await disconnectMongoose();
+  } catch (e) {
+    return e;
+  }
 };
 
 runScript();

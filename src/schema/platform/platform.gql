@@ -1,0 +1,15 @@
+type Platform {
+  _id: String
+  name: String!
+  igdbId: Int
+  logo: PlatformLogo
+  igdbGameList: [String]
+  games: [Game]
+}
+
+type PlatformLogo {
+  url: String
+  cloudinary_id: String
+  width: Int
+  height: Int
+}
