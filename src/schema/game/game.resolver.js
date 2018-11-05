@@ -5,8 +5,8 @@ import Game from '../../app/game/model';
 export default {
   Query: {
     async games(root, args) {
-      const { query } = args;
-      return await Game.search({ q: query });
+      const { query, size = 20, from = 0 } = args;
+      return await Game.search({ q: query, size, from });
     },
     async game(root, args) {
       const { _id } = args;

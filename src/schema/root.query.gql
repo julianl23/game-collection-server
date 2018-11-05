@@ -1,5 +1,5 @@
 type Query {
-  games(query: String): [Game]
+  games(query: String, size: Int, from: Int): [Game]
   game(_id: String): Game
   user(_id: String): User
   currentUser: User
