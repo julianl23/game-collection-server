@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
+import { ApolloError, AuthenticationError } from 'apollo-server';
 
 import Game from '../../app/game/model';
+import User from '../../app/user/model';
+import GameCollection from '../../app/game_collection/model';
 
 export default {
   Query: {
@@ -14,29 +17,26 @@ export default {
     }
   },
   Mutation: {
-    async AddGameToCollection() {
-      // async AddGameToCollection(root, args) {
-      // const gameId = args.input._id;
-      // const {
-      //   platform,
-      //   note,
-      //   borrowed,
-      //   borrowedDate,
-      //   cost,
-      //   details
-      // } = args.input;
-      // // TODO: Create config layer for getting api urls
-      // const addResult = await axios.put('http://localhost:3000/api/users', {
-      //   id: gameId,
-      //   platform,
-      //   note,
-      //   borrowed,
-      //   borrowedDate,
-      //   cost,
-      //   details
-      // });
-      // // console.log(addResult);
-      // return addResult.data.game;
+    AddGameToCollection: async function(root, args, context) {
+      const contextUser = context.user;
+      let currentUser;
+
+      if (contextUser) {
+        currentUser = await User.findOne({
+          _id: mongoose.Types.ObjectId(contextUser._id)
+        });
+      } else {
+        return AuthenticationError('User not authenticated');
+      }
+
+      try {
+        return await GameCollection.addGame(
+          currentUser.gameCollection,
+          args.input
+        );
+      } catch (e) {
+        throw new ApolloError(e, 400);
+      }
     }
   }
 };
