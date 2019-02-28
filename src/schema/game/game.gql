@@ -12,6 +12,7 @@ type Game {
   cover: Cover
   gameModes: [String]
   multiplayerModes: [MultiplayerMode]
+  inCollection: Boolean
 }
 
 input GameInput {

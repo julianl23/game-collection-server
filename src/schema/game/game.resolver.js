@@ -7,9 +7,32 @@ import GameCollection from '../../app/game_collection/model';
 
 export default {
   Query: {
-    async games(root, args) {
+    async games(root, args, context) {
       const { query, size = 20, from = 0 } = args;
-      return await Game.search({ q: query, size, from });
+
+      const contextUser = context.user;
+      let results = await Game.search({ q: query, size, from });
+
+      if (contextUser) {
+        let currentUser = await User.findOne({
+          _id: mongoose.Types.ObjectId(contextUser._id)
+        })
+          .populate('gameCollection')
+          .populate('items');
+
+        const collection = currentUser.gameCollection.items;
+        const collectionIds = collection.map(item => {
+          return item.game._id.toString();
+        });
+
+        results.forEach(resultItem => {
+          resultItem.inCollection = collectionIds.includes(resultItem._id);
+        });
+      }
+
+      console.log('i am reasults', results);
+
+      return results;
     },
     async game(root, args) {
       const { _id } = args;
